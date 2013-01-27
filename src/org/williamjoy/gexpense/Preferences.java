@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -131,14 +132,8 @@ public class Preferences extends PreferenceActivity {
     }
 
     private void showAbout() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("About");
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View aboutView = inflater.inflate(R.layout.about, null);
-        alert.setView(aboutView);
-        alert.setIcon(R.drawable.ic_money);
-        alert.setPositiveButton("Ok", null);
-        alert.show();
+        Intent intent = new Intent(getBaseContext(), AboutActivity.class);
+        startActivity(intent);
     }
 
     private void initlizeCalendarList() {
