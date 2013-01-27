@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.williamjoy.gexpense"
+    android:versionCode="3"
+    android:versionName="1.2" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="16" />
+
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+<!--     <uses-permission android:name="android.permission.INSTALL_LOCATION_PROVIDER" > -->
+<!--     </uses-permission> -->
+
+    <application
+        android:allowBackup="true"
+        android:description="@string/description"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:logo="@drawable/ic_money" >
+        <activity
+            android:name=".GExpenseActivity"
+            android:label="@string/app_name"
+            android:logo="@drawable/ic_money" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".CreateExpenseActivity" >
+        </activity>
+        <activity android:name=".EditExpenseActivity" >
+        </activity>
+        <activity android:name=".CalendarListViewActivity" >
+        </activity>
+        <activity android:name=".ExpenseReportActivity" >
+        </activity>
+        <activity android:name=".GoogleChartActivity" >
+        </activity>
+        <activity android:name=".Preferences" >
+        </activity>
+    </application>
+
+</manifest>

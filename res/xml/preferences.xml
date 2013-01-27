@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Google Calendar" >
+        <ListPreference
+            android:dialogIcon="@drawable/ic_airplane"
+            android:dialogTitle="Select Calendar"
+            android:key="calendar_id"
+            android:summary="Select a Google Calendar for Tracking Your Money"
+            android:title="Select a Google Calendar" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Display" >
+        <Preference
+            android:key="history_month"
+            android:summary="Display How Many Months of Expenses"
+            android:title="Display History" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Googe Chart API Settings" >
+        <SwitchPreference
+            android:key="is3D"
+            android:summaryOff="3D chart disabled"
+            android:summaryOn="3D chart enabled"
+            android:title="3D Pie Chart" />
+        <SwitchPreference
+            android:key="LOAD_CACHE_ONLY"
+            android:summaryOff="Load from Nextwork if Cache not available"
+            android:summaryOn="Load Cache Only"
+            android:title="Google JS Cache Setting" />
+        <SwitchPreference
+            android:key="DEBUG_HTML"
+            android:summaryOff="Debug Chart HTML Content Disabled"
+            android:summaryOn="Debug Chart HTML Content Enabled"
+            android:title="Debug" />
+        
+        <PreferenceScreen
+            android:key="Statistics"
+            android:summary="This is a Statistics PreferenceScreen"
+            android:title="Statistics PreferenceScreen" >
+            <EditTextPreference
+                android:name="An other EditText Preference"
+                android:key="SecondEditTextPref"
+                android:summary="This is a preference in the Statistics PreferenceScreen"
+                android:title="Edit text" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="About Google Expense" >
+        <Preference
+            android:key="about"
+            android:summary="About Google Expense, to My Little Mary"
+            android:title="About" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

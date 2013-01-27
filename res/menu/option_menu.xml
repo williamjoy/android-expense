@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menuItemCreate"
+        android:title="New Expense Event">
+    </item>
+    <item
+        android:id="@+id/menuItemRefresh"
+        android:title="Refresh">
+    </item>
+    <item
+        android:id="@+id/menuItemExpenseReport"
+        android:title="Google Column Chart">
+    </item>
+    <item
+        android:id="@+id/menuItemPieChart"
+        android:title="Google Pie Chart">
+    </item>
+    <item
+        android:id="@+id/menuItemSettings"
+        android:title="Settings">
+    </item>
+    <item
+        android:id="@+id/menuItemHelp"
+        android:title="Help">
+    </item>
+
+</menu>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="expense_category_array">
+        <item>Expense Type</item>
+        <item>Meal</item>
+        <item>Dailly Necessary</item>
+        <item>Snacks,Fruits</item>
+        <item>Transportation</item>
+        <item>Clothing</item>
+        <item>Travelling</item>
+        <item>Health Care</item>
+        <item>Telecommunication</item>
+        <item>Housing</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="payfrom_array">
+        <item>Cash</item>
+        <item>Credit Card</item>
+        <item>Bank Card</item>
+        <item>Yacol Card</item>
+        <item>Yagao Card</item>
+    </string-array>
+
+</resources>

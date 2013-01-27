@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="hello">Google Expense, to my beloved Mary!</string>
+    <string name="app_name">GExpense</string>
+    <string name="new_expense">New Expense</string>
+    <string name="description">My Expense , To Track Money Expense via Google Calendar</string>
+    <string name="about_url">http://code.google.com/p/google-expense/</string>
+    <string name="author">\u00A9 Lichun Wei</string>
+    <string name="email">lichun.william@gmail.com</string>
+    
+    <string name="google_cal_url">https://www.google.com/calendar/render?tab=wc</string>
+    <string name="version">1.0.0.1</string>
+    <string name="label_date">Date:</string>
+    <string name="label_money">Money:</string>
+    <string name="label_location">Location:</string>
+    <string name="label_create">OK</string>
+    <string name="icon">expense type icon</string>
+
+</resources>

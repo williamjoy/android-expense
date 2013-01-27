@@ -1,0 +1,30 @@
+<html>
+<head>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+google.load("visualization", "1", {packages:["corechart"]});	
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+var options = {
+    backgroundColor: '${backgroundColor}' ,
+    legend: {position: '${position}' , alignment:"center"} ,
+    title: '${title}',
+    chartArea: {width: '95%'},
+    titlePosition: 'in',
+    axisTitlesPosition: 'in',
+    hAxis: {textPosition: 'in'},
+    vAxis: {textPosition: 'in'}
+  };
+  var data=${dataTable} ; 
+  var chart  = new google.visualization.${ChartFunction}(document.getElementById('chart_div'));
+  chart.draw(data, options);
+
+}
+</script>    
+</head>
+<body>
+<div id="chart_div" style="width: 180%; height: 100%; align: center">Loading...</div>
+<div id='table_div' style="width: 180%;  align: center"/>
+<code align="center">height: ${height}px; ${width}px;</code>  
+</body>
+</html>

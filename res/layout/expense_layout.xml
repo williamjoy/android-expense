@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingRight="10dip" >
+
+    <!-- Category -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.00"
+            android:gravity="right|center_vertical"
+            android:paddingRight="10dip"
+            android:text="Category:"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/category_spinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3.00"
+            android:entries="@array/expense_category_array"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+    <!-- Title -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.00"
+            android:gravity="right|center_vertical"
+            android:paddingRight="10dip"
+            android:text="Title:"
+            android:textStyle="bold" />
+
+        <AutoCompleteTextView
+            android:id="@+id/editTextTitle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3.00"
+            android:completionThreshold="1"
+            android:hint="For what"
+            android:singleLine="true" >
+        </AutoCompleteTextView>
+    </LinearLayout>
+
+    <!-- Money -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.00"
+            android:gravity="right|center_vertical"
+            android:paddingRight="10dip"
+            android:text="@string/label_money"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editTextMoney"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_weight="3.00"
+            android:ems="10"
+            android:hint="How Much"
+            android:inputType="numberDecimal"
+            android:singleLine="true" >
+        </EditText>
+    </LinearLayout>
+    <!-- Location -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.00"
+            android:gravity="right|center_vertical"
+            android:paddingRight="10dip"
+            android:text="@string/label_location"
+            android:textStyle="bold" />
+
+        <AutoCompleteTextView
+            android:id="@+id/editTextLocation"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_weight="3.00"
+            android:completionThreshold="1"
+            android:ems="10"
+            android:inputType="textPostalAddress"
+            android:singleLine="true" />
+    </LinearLayout>
+    <!-- Date -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.00"
+            android:gravity="right|center_vertical"
+            android:paddingRight="10dip"
+            android:text="@string/label_date"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_weight="3.00"
+            android:cursorVisible="false"
+            android:ems="10"
+            android:focusable="false"
+            android:onClick="onClickDatePicker"
+            android:text="@string/label_date"
+            android:textColor="@android:color/secondary_text_dark" >
+        </EditText>
+    </LinearLayout>
+
+    <!-- Pay From -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.00"
+            android:gravity="right|center_vertical"
+            android:paddingRight="10dip"
+            android:text="Pay from:"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/payfrom_spinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3.00"
+            android:entries="@array/payfrom_array"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="fill_parent"
+        android:layout_height="20dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:id="@+id/buttonSubmitExpense"
+        android:text="@string/label_create" />
+
+</LinearLayout>
