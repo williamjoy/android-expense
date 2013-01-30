@@ -11,11 +11,15 @@
     </item>
     <item
         android:id="@+id/menuItemExpenseReport"
-        android:title="Google Column Chart">
+        android:title="Google Column Chart"
+        android:icon="@drawable/ic_action_chart"
+        android:showAsAction="ifRoom|withText">
     </item>
     <item
         android:id="@+id/menuItemPieChart"
-        android:title="Google Pie Chart">
+        android:title="Google Pie Chart"
+        android:icon="@drawable/ic_action_chart"
+        android:showAsAction="ifRoom|withText">
     </item>
     <item
         android:id="@+id/menuItemSettings"
