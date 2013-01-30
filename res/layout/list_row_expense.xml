@@ -27,10 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/location"
         android:text="iPad"
-        android:textColor="#99CCFF"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:typeface="sans" />
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <!-- Location Name -->
 
@@ -42,7 +40,6 @@
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/expense_list"
         android:text="Mars"
-        android:textColor="#0066FF"
         android:textSize="10sp" />
 
     <!-- Money -->

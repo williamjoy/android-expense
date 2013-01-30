@@ -22,30 +22,32 @@
         android:description="@string/description"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:logo="@drawable/ic_money" >
+        android:logo="@drawable/ic_money"
+        android:theme="@android:style/Theme.Holo.Light">
         <activity
             android:name=".GExpenseActivity"
             android:label="@string/app_name"
-            android:logo="@drawable/ic_money" >
+            android:logo="@drawable/ic_money"
+           >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateExpenseActivity" >
+        <activity android:name=".CreateExpenseActivity" android:uiOptions="splitActionBarWhenNarrow">
         </activity>
-        <activity android:name=".EditExpenseActivity" >
+        <activity android:name=".EditExpenseActivity" android:uiOptions="splitActionBarWhenNarrow">
         </activity>
-        <activity android:name=".CalendarListViewActivity" >
+        <activity android:name=".CalendarListViewActivity">
         </activity>
-        <activity android:name=".ExpenseReportActivity" >
+        <activity android:name=".ExpenseReportActivity">
         </activity>
-        <activity android:name=".GoogleChartActivity" >
+        <activity android:name=".GoogleChartActivity" android:uiOptions="splitActionBarWhenNarrow">
         </activity>
-        <activity android:name=".Preferences" >
+        <activity android:name=".Preferences">
         </activity>
-        <activity android:name=".AboutActivity" >
+        <activity android:name=".AboutActivity">
         </activity>
     </application>
 

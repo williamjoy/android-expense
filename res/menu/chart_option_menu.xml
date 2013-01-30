@@ -3,11 +3,13 @@
 
     <item
         android:id="@+id/menuItemBrowser"
-        android:title="View In Browser">
+        android:title="View In Browser"
+        android:showAsAction="always">
     </item>
     <item
         android:id="@+id/menuItemDebug"
-        android:title="View Source">
+        android:title="View Source"
+        android:showAsAction="always">
     </item>
 
 </menu>
