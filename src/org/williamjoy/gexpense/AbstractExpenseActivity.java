@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public abstract class AbstractExpenseActivity extends Activity {
     protected Calendar mDate;
@@ -107,9 +108,14 @@ public abstract class AbstractExpenseActivity extends Activity {
             case R.id.menuItemSaveExpense:
                 this.doSubmit();
                 break;
+            case R.id.menuItemCancelSaveExpense:
+                Toast.makeText(getApplicationContext(), "Event not saved", Toast.LENGTH_SHORT).show();
+                this.finish();
+                break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+    
 }
