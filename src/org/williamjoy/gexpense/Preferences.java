@@ -39,9 +39,7 @@ public class Preferences extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sharedPref = this
-                .getPreferences(Context.MODE_PRIVATE);
-        Map<String, ?> map = sharedPref.getAll();
+
         addPreferencesFromResource(R.xml.preferences);
         initlizeCalendarList();
         ListPreference calendar = (ListPreference) this
