@@ -36,9 +36,6 @@ public abstract class AbstractExpenseActivity extends Activity {
         mDate = Calendar.getInstance();
         setContentView(R.layout.expense_layout);
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         loadAutoCompleteResource();
         AutoCompleteTextView title = (AutoCompleteTextView) this
                 .findViewById(R.id.editTextTitle);
