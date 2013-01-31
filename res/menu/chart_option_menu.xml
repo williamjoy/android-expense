@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <item
-        android:id="@+id/menuItemBrowser"
-        android:title="View In Browser"
-        android:showAsAction="always">
-    </item>
+    
     <item
         android:id="@+id/menuItemDebug"
         android:title="View Source"
-        android:showAsAction="always">
+        android:icon="@drawable/ic_action_source_code"
+        android:showAsAction="ifRoom|withText">
+    </item>
+    <item
+        android:id="@+id/menuItemBrowser"
+        android:title="View In Browser"
+        android:icon="@drawable/ic_action_browser"
+        android:showAsAction="ifRoom|withText">
     </item>
 
 </menu>

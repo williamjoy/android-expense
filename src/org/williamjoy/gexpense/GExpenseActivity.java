@@ -142,7 +142,6 @@ public class GExpenseActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         /*
          * If not selected , try to read from database first
          */
