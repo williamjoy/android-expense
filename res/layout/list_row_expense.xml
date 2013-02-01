@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/list_image"
-            android:layout_width="32sp"
-            android:layout_height="32sp"
+            android:layout_width="36sp"
+            android:layout_height="36sp"
             android:contentDescription="@string/icon"
             android:src="@drawable/ic_money" />
     </LinearLayout>

@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public abstract class AbstractExpenseActivity extends Activity {
@@ -34,7 +35,10 @@ public abstract class AbstractExpenseActivity extends Activity {
         onNewIntent(getIntent());
         mDate = Calendar.getInstance();
         setContentView(R.layout.expense_layout);
-
+        
+        ActionBar bar = this.getActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
+        bar.setTitle("Create");
         loadAutoCompleteResource();
         AutoCompleteTextView title = (AutoCompleteTextView) this
                 .findViewById(R.id.editTextTitle);
@@ -104,7 +108,7 @@ public abstract class AbstractExpenseActivity extends Activity {
             case R.id.menuItemSaveExpense:
                 this.doSubmit();
                 break;
-            case R.id.menuItemCancelSaveExpense:
+            case android.R.id.home:
                 Toast.makeText(getApplicationContext(), "Event not saved", Toast.LENGTH_SHORT).show();
                 this.finish();
                 break;

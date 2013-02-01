@@ -3,6 +3,7 @@ package org.williamjoy.gexpense;
 import java.util.ArrayList;
 import java.util.Map;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -21,6 +22,7 @@ import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Calendars;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -41,6 +43,9 @@ public class Preferences extends PreferenceActivity {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);
+        ActionBar bar = this.getActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
+        bar.setTitle("Settings");
         initlizeCalendarList();
         ListPreference calendar = (ListPreference) this
                 .findPreference(GExpenseConstants.ExpenseEvents._ID);
@@ -158,5 +163,15 @@ public class Preferences extends PreferenceActivity {
         calendarNames = calendarNameList.toArray(calendarNames);
         calendarIDs = calendarIDList.toArray(calendarIDs);
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                break;
+                default:
+                    break;
+        }
+        return true;
+    }
 }
