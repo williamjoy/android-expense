@@ -12,15 +12,18 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 public abstract class AbstractExpenseActivity extends Activity {
@@ -35,22 +38,47 @@ public abstract class AbstractExpenseActivity extends Activity {
         onNewIntent(getIntent());
         mDate = Calendar.getInstance();
         setContentView(R.layout.expense_layout);
-        
+
         ActionBar bar = this.getActionBar();
         bar.setDisplayHomeAsUpEnabled(true);
         bar.setTitle("Create");
         loadAutoCompleteResource();
-        AutoCompleteTextView title = (AutoCompleteTextView) this
+        final TextView editMoney = (TextView) this
+                .findViewById(R.id.editTextMoney);
+        final AutoCompleteTextView title = (AutoCompleteTextView) this
                 .findViewById(R.id.editTextTitle);
         title.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, this.what));
 
-        AutoCompleteTextView location = (AutoCompleteTextView) this
+        final AutoCompleteTextView location = (AutoCompleteTextView) this
                 .findViewById(R.id.editTextLocation);
         location.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_expandable_list_item_1, this.location));
         fillInForm();
         notifyDateDisplayRefresh();
+
+        OnEditorActionListener editorActionListener = new OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId,
+                    KeyEvent event) {
+                boolean handled = false;
+                if (v == location) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        doSubmit();
+                        handled = true;
+                    }
+                } else if (v == title) {
+                    editMoney.requestFocus();
+                    handled = true;
+                } else if (v == editMoney) {
+                    location.requestFocus();
+                    handled = true;
+                }
+                return handled;
+            }
+        };
+        location.setOnEditorActionListener(editorActionListener);
+        title.setOnEditorActionListener(editorActionListener);
+        editMoney.setOnEditorActionListener(editorActionListener);
     }
 
     protected abstract void doSubmit();
@@ -109,7 +137,8 @@ public abstract class AbstractExpenseActivity extends Activity {
                 this.doSubmit();
                 break;
             case android.R.id.home:
-                Toast.makeText(getApplicationContext(), "Event not saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Event not saved",
+                        Toast.LENGTH_SHORT).show();
                 this.finish();
                 break;
             default:
@@ -117,5 +146,4 @@ public abstract class AbstractExpenseActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-    
 }
