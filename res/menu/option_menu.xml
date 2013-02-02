@@ -30,6 +30,12 @@
         android:title="Settings">
     </item>
     <item
+        android:id="@+id/menuItemSync"
+        android:title="Sync with Google"
+        android:icon="@drawable/ic_action_sync"
+        android:showAsAction="ifRoom|withText">
+    </item>
+    <item
         android:id="@+id/menuItemHelp"
         android:title="Help">
     </item>

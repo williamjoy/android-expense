@@ -265,6 +265,9 @@ public class GExpenseActivity extends Activity {
             case R.id.menuItemPieChart:
                 this.startPieChartReportActivity();
                 break;
+            case R.id.menuItemSync:
+            	startActivity(new Intent(android.provider.Settings.ACTION_SYNC_SETTINGS));
+            	break;
             default:
                 return super.onOptionsItemSelected(item);
         }
