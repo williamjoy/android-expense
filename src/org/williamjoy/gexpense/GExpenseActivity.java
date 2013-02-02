@@ -12,6 +12,7 @@ import java.util.Set;
 import org.williamjoy.gexpense.model.CalendarInstanceData;
 import org.williamjoy.gexpense.util.DateHelper;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -33,6 +34,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -142,7 +144,8 @@ public class GExpenseActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.requestWindowFeature(Window.FEATURE_ACTION_BAR);
+
         /*
          * If not selected , try to read from database first
          */
@@ -155,8 +158,10 @@ public class GExpenseActivity extends Activity {
         if (this.calendar_id == GExpenseConstants.CALENDAR_ID_NOT_SET) {
             this.showPreferences();
         }
-
         showExpenseEventsView();
+        ActionBar bar = this.getActionBar();
+        bar.setDisplayShowHomeEnabled(false);
+        bar.setTitle("Expense List");
         adapter = new CalendarInstanceAdapter(this, instanceList);
         ListView listView = (ListView) this.findViewById(R.id.listViewEvents);
 
@@ -229,7 +234,6 @@ public class GExpenseActivity extends Activity {
         inflater.inflate(R.menu.option_menu, menu);
         return true;
     }
-    
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -249,9 +253,12 @@ public class GExpenseActivity extends Activity {
                 this.startExpenseReportActivity();
                 break;
             case R.id.menuItemHelp:
-                Uri uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath()+"/index.html"));
+                Uri uri = Uri.fromFile(new File(Environment
+                        .getExternalStorageDirectory().getPath()
+                        + "/index.html"));
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW);
-                browserIntent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
+                browserIntent.setClassName("com.android.browser",
+                        "com.android.browser.BrowserActivity");
                 browserIntent.setData(uri);
                 startActivity(browserIntent);
                 break;
@@ -265,7 +272,7 @@ public class GExpenseActivity extends Activity {
     }
 
     private void startPieChartReportActivity() {
-    	//expense type pie chart
+        // expense type pie chart
         HashMap<String, Double> data = new HashMap<String, Double>();
         for (CalendarInstanceData instance : this.instanceList) {
             String key = instance.getCategory();
@@ -279,8 +286,8 @@ public class GExpenseActivity extends Activity {
         Intent intent = new Intent(getBaseContext(), GoogleChartActivity.class);
         intent.putExtra("data", data);
         startActivity(intent);
-        
-        //pay from pie chart
+
+        // pay from pie chart
         data.clear();
         for (CalendarInstanceData instance : this.instanceList) {
             String key = instance.getPayFrom();
@@ -308,15 +315,15 @@ public class GExpenseActivity extends Activity {
         StringBuilder rawTable = new StringBuilder();
         double m = 0.0;
         final String f = "[new Date(%s,%s,%s),%.2f],\n";
-        String lastDate="";
+        String lastDate = "";
         for (CalendarInstanceData instance : this.instanceList) {
-        	if(instance.getDoubleMoney()==0.0)
-        		continue;
+            if (instance.getDoubleMoney() == 0.0)
+                continue;
             m = m + instance.getDoubleMoney();
-            if(lastDate.equals(instance.getStartDate())){
-            	continue;
-            }else{
-            	lastDate=instance.getStartDate();
+            if (lastDate.equals(instance.getStartDate())) {
+                continue;
+            } else {
+                lastDate = instance.getStartDate();
             }
             String[] x = instance.getStartDate().split("/");
             rawTable.append(String.format(f, x[2], x[0], x[1], m));

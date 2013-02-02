@@ -3,19 +3,27 @@
 
     <item
         android:id="@+id/menuItemCreate"
-        android:title="New Expense Event">
+        android:title="New Event"
+        android:icon="@drawable/ic_action_new"
+        android:showAsAction="ifRoom|withText">
     </item>
     <item
         android:id="@+id/menuItemRefresh"
-        android:title="Refresh">
+        android:title="Refresh"
+        android:icon="@drawable/ic_action_refresh"
+        android:showAsAction="ifRoom|withText">
     </item>
     <item
         android:id="@+id/menuItemExpenseReport"
-        android:title="Google Column Chart">
+        android:title="Google Column Chart"
+        android:icon="@drawable/ic_action_chart"
+        android:showAsAction="ifRoom|withText">
     </item>
     <item
         android:id="@+id/menuItemPieChart"
-        android:title="Google Pie Chart">
+        android:title="Google Pie Chart"
+        android:icon="@drawable/ic_action_chart"
+        android:showAsAction="withText|ifRoom">
     </item>
     <item
         android:id="@+id/menuItemSettings"

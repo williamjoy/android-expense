@@ -31,17 +31,7 @@
             android:summaryOff="Debug Chart HTML Content Disabled"
             android:summaryOn="Debug Chart HTML Content Enabled"
             android:title="Debug" />
-        
-        <PreferenceScreen
-            android:key="Statistics"
-            android:summary="This is a Statistics PreferenceScreen"
-            android:title="Statistics PreferenceScreen" >
-            <EditTextPreference
-                android:name="An other EditText Preference"
-                android:key="SecondEditTextPref"
-                android:summary="This is a preference in the Statistics PreferenceScreen"
-                android:title="Edit text" />
-        </PreferenceScreen>
+
     </PreferenceCategory>
     <PreferenceCategory android:title="About Google Expense" >
         <Preference

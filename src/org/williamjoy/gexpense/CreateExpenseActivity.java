@@ -14,6 +14,8 @@ import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Events;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -119,10 +121,10 @@ public class CreateExpenseActivity extends AbstractExpenseActivity {
         return cal_id;
     }
 
+
     @Override
     protected void fillInForm() {
-        // TODO Auto-generated method stub
-
+       
     }
 
 }

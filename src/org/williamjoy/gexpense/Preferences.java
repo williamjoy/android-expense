@@ -3,10 +3,12 @@ package org.williamjoy.gexpense;
 import java.util.ArrayList;
 import java.util.Map;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -20,6 +22,7 @@ import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Calendars;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -38,10 +41,11 @@ public class Preferences extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sharedPref = this
-                .getPreferences(Context.MODE_PRIVATE);
-        Map<String, ?> map = sharedPref.getAll();
+
         addPreferencesFromResource(R.xml.preferences);
+        ActionBar bar = this.getActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
+        bar.setTitle("Settings");
         initlizeCalendarList();
         ListPreference calendar = (ListPreference) this
                 .findPreference(GExpenseConstants.ExpenseEvents._ID);
@@ -131,14 +135,8 @@ public class Preferences extends PreferenceActivity {
     }
 
     private void showAbout() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("About");
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View aboutView = inflater.inflate(R.layout.about, null);
-        alert.setView(aboutView);
-        alert.setIcon(R.drawable.ic_money);
-        alert.setPositiveButton("Ok", null);
-        alert.show();
+        Intent intent = new Intent(getBaseContext(), AboutActivity.class);
+        startActivity(intent);
     }
 
     private void initlizeCalendarList() {
@@ -165,5 +163,15 @@ public class Preferences extends PreferenceActivity {
         calendarNames = calendarNameList.toArray(calendarNames);
         calendarIDs = calendarIDList.toArray(calendarIDs);
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                break;
+                default:
+                    break;
+        }
+        return true;
+    }
 }

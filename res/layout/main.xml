@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:scrollbarAlwaysDrawVerticalTrack="true"
-    android:scrollbarStyle="outsideInset" >
+    android:scrollbarStyle="outsideInset">
 
     <ListView
         android:id="@+id/listViewEvents"
