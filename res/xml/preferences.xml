@@ -11,7 +11,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="Display" >
         <Preference
-            android:key="history_month"
+            android:key="@string/key_history"
             android:summary="Display How Many Months of Expenses"
             android:title="Display History" />
     </PreferenceCategory>
@@ -35,7 +35,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="About Google Expense" >
         <Preference
-            android:key="about"
+            android:key="@string/key_about"
             android:summary="About Google Expense, to My Little Mary"
             android:title="About" />
     </PreferenceCategory>

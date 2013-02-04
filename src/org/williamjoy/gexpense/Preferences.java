@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -38,10 +39,10 @@ public class Preferences extends PreferenceActivity {
             Calendars.ACCOUNT_TYPE,// 4
     };
 
+    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         addPreferencesFromResource(R.xml.preferences);
         ActionBar bar = this.getActionBar();
         bar.setDisplayHomeAsUpEnabled(true);
@@ -52,14 +53,17 @@ public class Preferences extends PreferenceActivity {
         calendar.setEntries(calendarNames);
         calendar.setEntryValues(calendarIDs);
 
-        Preference about = (Preference) findPreference("about");
+        Preference about = (Preference) findPreference(this.getResources()
+                .getString(R.string.key_about));
         about.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
                 showAbout();
                 return true;
             }
         });
-        Preference history_month = (Preference) findPreference("history_month");
+        Preference history_month = (Preference) findPreference(this
+                .getResources().getString(R.string.key_history));
+
         history_month
                 .setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
@@ -73,55 +77,30 @@ public class Preferences extends PreferenceActivity {
 
     protected void showHistoryMonthSeek() {
         final AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Display historical months");
+        alert.setTitle("Display history limit");
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View historyView = inflater.inflate(R.layout.history_months, null);
         alert.setView(historyView);
-        alert.setIcon(R.drawable.ic_money);
-
-        final SeekBar skBar = (SeekBar) historyView
+        alert.setMessage("set number of display month limit");
+        final NumberPicker numberPicker = (NumberPicker) historyView
                 .findViewById(R.id.seekBarHistoryMonth);
-        final TextView text = (TextView) historyView
-                .findViewById(R.id.textViewHistoryMonth);
 
+        numberPicker.setMaxValue(12);
+        numberPicker.setMinValue(1);
         Preference history_month = (Preference) findPreference("history_month");
         SharedPreferences sharedPref = PreferenceManager
                 .getDefaultSharedPreferences(Preferences.this);
-        int progress = sharedPref.getInt(history_month.getKey(),
+        int storedMonth = sharedPref.getInt(history_month.getKey(),
                 GExpenseConstants.MINUMUM_MONTHS);
-        text.setText("Display from " + progress + " month(s) ago");
-        progress = progress - GExpenseConstants.MINUMUM_MONTHS;
-        skBar.setProgress(progress);
-        OnSeekBarChangeListener l = new OnSeekBarChangeListener() {
+        numberPicker.setValue(storedMonth);
 
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress,
-                    boolean fromUser) {
-                text.setText("Display from "
-                        + (progress + GExpenseConstants.MINUMUM_MONTHS)
-                        + " month(s) ago");
-            }
-        };
-        skBar.setOnSeekBarChangeListener(l);
-
-        OnClickListener positive = new OnClickListener() {
+        OnClickListener dialogListener = new OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                int months = skBar.getProgress()
-                        + GExpenseConstants.MINUMUM_MONTHS;
+                if (which == DialogInterface.BUTTON_NEGATIVE)
+                    return;
+                int months = numberPicker.getValue();
                 Preference history_month = (Preference) findPreference("history_month");
                 SharedPreferences.Editor editor = PreferenceManager
                         .getDefaultSharedPreferences(Preferences.this).edit();
@@ -129,7 +108,8 @@ public class Preferences extends PreferenceActivity {
                 editor.commit();
             }
         };
-        alert.setPositiveButton("Ok", positive);
+        alert.setPositiveButton("Ok", dialogListener);
+        alert.setNegativeButton("Cancel", dialogListener);
         alert.show();
 
     }
@@ -163,14 +143,15 @@ public class Preferences extends PreferenceActivity {
         calendarNames = calendarNameList.toArray(calendarNames);
         calendarIDs = calendarIDList.toArray(calendarIDs);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
                 break;
-                default:
-                    break;
+            default:
+                break;
         }
         return true;
     }

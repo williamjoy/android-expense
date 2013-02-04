@@ -14,5 +14,8 @@
     <string name="label_location">Location:</string>
     <string name="label_create">OK</string>
     <string name="icon">expense type icon</string>
-
+    
+    <!-- preference keys -->
+    <string name="key_about">about</string>
+    <string name="key_history">history_month</string>
 </resources>
