@@ -8,6 +8,11 @@
             android:key="calendar_id"
             android:summary="Select a Google Calendar for Tracking Your Money"
             android:title="Select a Google Calendar" />
+
+        <Preference
+            android:key="calendar_create"
+            android:summary="Create a new calendar"
+            android:title="Create a new calendar" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Display" >
         <Preference
@@ -31,7 +36,6 @@
             android:summaryOff="Debug Chart HTML Content Disabled"
             android:summaryOn="Debug Chart HTML Content Enabled"
             android:title="Debug" />
-
     </PreferenceCategory>
     <PreferenceCategory android:title="About Google Expense" >
         <Preference

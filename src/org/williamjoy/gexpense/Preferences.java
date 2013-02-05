@@ -1,15 +1,14 @@
 package org.williamjoy.gexpense;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -25,9 +24,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.NumberPicker;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.TextView;
 
 public class Preferences extends PreferenceActivity {
     private String[] calendarNames = {};
@@ -63,9 +59,9 @@ public class Preferences extends PreferenceActivity {
         });
         Preference history_month = (Preference) findPreference(this
                 .getResources().getString(R.string.key_history));
+        Preference createCalendar = (Preference) findPreference("calendar_create");
 
-        history_month
-                .setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        history_month.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
