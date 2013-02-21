@@ -85,8 +85,8 @@ public class Preferences extends PreferenceActivity {
         final NumberPicker numberPicker = (NumberPicker) historyView
                 .findViewById(R.id.seekBarHistoryMonth);
 
-        numberPicker.setMaxValue(12);
         numberPicker.setMinValue(1);
+        numberPicker.setMaxValue(12);
         Preference history_month = (Preference) findPreference("history_month");
         SharedPreferences sharedPref = PreferenceManager
                 .getDefaultSharedPreferences(Preferences.this);
