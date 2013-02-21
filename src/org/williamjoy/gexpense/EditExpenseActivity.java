@@ -100,13 +100,12 @@ public class EditExpenseActivity extends AbstractExpenseActivity {
         values.put(Events.HAS_ALARM, false);
         values.put(Events.EVENT_LOCATION, strLocation);
         values.put(Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
-
+        
+        Toast.makeText(getApplicationContext(),
+                "Updating ...", Toast.LENGTH_SHORT).show();
         Uri uri = ContentUris.withAppendedId(Events.CONTENT_URI, eventID);
         cr.update(uri, values, null, null);
 
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Updated for you, I love Mary!", Toast.LENGTH_SHORT);
-        toast.show();
         Intent resultIntent = new Intent();
         setResult(Activity.RESULT_OK, resultIntent);
         this.finish();

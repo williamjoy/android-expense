@@ -86,13 +86,12 @@ public class CreateExpenseActivity extends AbstractExpenseActivity {
         values.put(Events.HAS_ALARM, false);
         values.put(Events.EVENT_LOCATION, strLocation);
         values.put(Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
-        Uri uri = cr.insert(Events.CONTENT_URI, values);
+        
+        Toast.makeText(getApplicationContext(),
+                "Creating expense event...",
+                Toast.LENGTH_SHORT).show();
+        cr.insert(Events.CONTENT_URI, values);
 
-        long eventID = Long.parseLong(uri.getLastPathSegment());
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Calendar Event with ID=" + eventID + " created!",
-                Toast.LENGTH_SHORT);
-        toast.show();
         Intent resultIntent = new Intent();
         setResult(Activity.RESULT_OK, resultIntent);
         this.finish();
