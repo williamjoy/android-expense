@@ -1,15 +1,14 @@
 package org.williamjoy.gexpense;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -24,10 +23,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.TextView;
+import android.widget.Toast;
 
 public class Preferences extends PreferenceActivity {
     private String[] calendarNames = {};
@@ -63,9 +61,16 @@ public class Preferences extends PreferenceActivity {
         });
         Preference history_month = (Preference) findPreference(this
                 .getResources().getString(R.string.key_history));
-
-        history_month
-                .setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        Preference createCalendar = (Preference) findPreference("calendar_create");
+        createCalendar.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                showCreateCalendarDialog();
+                return true;
+            }
+        });
+        history_month.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
@@ -73,6 +78,28 @@ public class Preferences extends PreferenceActivity {
                         return true;
                     }
                 });
+    }
+
+    protected void showCreateCalendarDialog() {
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("New calendar");
+        alert.setMessage("Create a new calendar");
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View createCalendarView = inflater.inflate(R.layout.create_calendar, null);
+        alert.setView(createCalendarView);
+        OnClickListener dialogListener = new OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == DialogInterface.BUTTON_NEGATIVE)
+                    return;
+                String input=((EditText)createCalendarView.findViewById(R.id.create_calendar)).getText().toString();
+                Toast.makeText(getBaseContext(), "Not creat "+input +", API not work for create calendar!", Toast.LENGTH_SHORT).show();
+            }
+        };
+        alert.setPositiveButton("Ok", dialogListener);
+        alert.setNegativeButton("Cancel", dialogListener);
+        alert.show();
     }
 
     protected void showHistoryMonthSeek() {
