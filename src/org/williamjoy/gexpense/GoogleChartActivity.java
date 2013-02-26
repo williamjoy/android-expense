@@ -108,7 +108,7 @@ public class GoogleChartActivity extends Activity {
 
             writeTmpFile();
             Uri uri = Uri.fromFile(tmpHTMLFile);
-            if (false == startBrowserActivity(uri, "com.chrome.beta",
+            if (false == startBrowserActivity(uri, "com.android.chrome",
                     "com.google.android.apps.chrome.Main")) {
                 startBrowserActivity(uri, "com.android.browser",
                         "com.android.browser.BrowserActivity");
@@ -135,7 +135,7 @@ public class GoogleChartActivity extends Activity {
             return true;
         } catch (ActivityNotFoundException e) {
             Toast.makeText(getBaseContext(),
-                    "com.chrome.beta package not installed", Toast.LENGTH_SHORT)
+                    "com.android.chrome package not installed", Toast.LENGTH_SHORT)
                     .show();
             return false;
         }
