@@ -1,44 +1,28 @@
 package org.williamjoy.gexpense;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.io.Serializable;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
-import org.williamjoy.gexpense.googlechart.AbstractChart;
-import org.williamjoy.gexpense.googlechart.ColumnChart;
-import org.williamjoy.gexpense.googlechart.PieChart;
-import org.williamjoy.gexpense.googlechart.RawTextHelper;
+import org.williamjoy.gexpense.util.DateHelper;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.SharedPreferences;
-import android.graphics.Point;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.provider.CalendarContract.Instances;
+import android.util.Log;
 import android.view.WindowManager;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ListView;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class ExpenseStatsActivity extends Activity {
-    public static final int PIE_CHART = 0x01;
-    public static final int CLOUMN_CHART = 0x02;
-    private AbstractChart mChart;
+    ProgressBarStatsAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,151 +30,96 @@ public class ExpenseStatsActivity extends Activity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        this.setContentView(R.layout.expense_report);
+        this.setContentView(R.layout.expense_stats);
+        ListView listView = (ListView) this.findViewById(R.id.listViewStats);
 
+        mAdapter = new ProgressBarStatsAdapter(this);
+        this.doStats();
+        listView.setAdapter(mAdapter);
+    }
+
+    private void doStats() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM",
+                Locale.getDefault());
+        long calendar_id = getSelectedCalendarID();
+        Calendar endTime = Calendar.getInstance();
+        Calendar beginTime = (Calendar) endTime.clone();
+        endTime.add(Calendar.MONTH, +1);
+        beginTime.add(Calendar.MONTH, -36);
+        long startMillis = beginTime.getTimeInMillis();
+        long endMillis = endTime.getTimeInMillis();
+
+        Cursor cur = null;
+        ContentResolver cr = getContentResolver();
+
+        // Construct the query with the desired date range.
+        Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
+        ContentUris.appendId(builder, startMillis);
+        ContentUris.appendId(builder, endMillis);
+
+        // Submit the query
+        cur = cr.query(builder.build(), new String[] { Instances.BEGIN,
+                Instances.TITLE }, Instances.CALENDAR_ID + " = ?",
+                new String[] { "" + calendar_id }, Instances.BEGIN + " ASC");
+
+        int last_month = -1;
+        double sum = 0;
+        int year = 0, month = 0;
+        while (cur.moveToNext()) {
+            String title = "";
+
+            long beginVal = cur.getLong(0);
+            title = cur.getString(1);
+            String s[] = title.split("\\|");
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(beginVal);
+
+            if (s.length > 1) {
+                try {
+                    double money = Double.parseDouble(s[1]);
+                    year = calendar.get(Calendar.YEAR);
+                    month = calendar.get(Calendar.MONTH);
+                    int current_month = (year << 4) + month;
+                    Log.d("Data", "last_month=" + last_month + ",current="
+                            + current_month);
+                    if (current_month != last_month) {
+                        if (last_month != -1) {
+                            String key = String.format("%d-%02d",
+                                    last_month >> 4, last_month % 16 + 1);
+                            this.mAdapter.pushData(key, (int) sum);
+                        }
+                        sum = money;
+                        last_month = current_month;
+                    } else {
+                        sum += money;
+                    }
+                } catch (Exception e) {
+                    Log.d("Debug", "", e);
+                }
+            }
+        }
+
+        if (last_month != -1) {
+            String key = String.format("%d-%02d", year, month + 1);
+            this.mAdapter.pushData(key, (int) sum);
+        }
+    }
+
+    private long getSelectedCalendarID() {
+        long cal_id = -1L;
         SharedPreferences sharedPrefenceManger = PreferenceManager
                 .getDefaultSharedPreferences(this);
-        WebView webview = (WebView) this.findViewById(R.id.webViewChart);
-        WebSettings webSettings = webview.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setSupportZoom(true);
-        webSettings.setDisplayZoomControls(true);
-        webSettings.setCacheMode(sharedPrefenceManger.getBoolean(
-                "LOAD_CACHE_ONLY", false) ? WebSettings.LOAD_CACHE_ONLY
-                : WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        webSettings.setLightTouchEnabled(true);
-        final Activity activity = this;
-        webview.setWebChromeClient(new WebChromeClient() {
-            public void onProgressChanged(WebView view, int progress) {
-                activity.setProgress(progress * 1000);
-            }
-        });
-        webview.setWebViewClient(new WebViewClient() {
-            public void onReceivedError(WebView view, int errorCode,
-                    String description, String failingUrl) {
-                Toast.makeText(activity, "Oh no! " + description,
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        RawTextHelper helper = new RawTextHelper(this);
-        String html = helper.getRawText();
-
-        if (getIntent().hasExtra("chart_type")) {
-            mChart = new ColumnChart(html);
-        } else {
-            mChart = new PieChart(html);
-            ((PieChart) mChart).setEnable3D(sharedPrefenceManger.getBoolean("is3D", false));
-        }
-
-        Serializable data = this.getIntent().getSerializableExtra("data");
-        if (data instanceof HashMap<?, ?>) {
-            mChart.setDataTable((HashMap<String, Double>) data);
-        } else {
-            mChart.setDataTable(data.toString());
-        }
-        mChart.setTitle("Expense by Type");
-        Point size=new Point();
-        getWindowManager().getDefaultDisplay().getSize(size);
-        mChart.setWidth(size.x);
-        mChart.setHeight(size.y);
-
-        webview.loadData(mChart.getHTMLData(), "text/html", null);
-        
-    }
-
-    private void viewInBrowser() {
-
-        String state = Environment.getExternalStorageState();
-
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-
-            writeTmpFile();
-            Uri uri = Uri.fromFile(tmpHTMLFile);
-            if (false == startBrowserActivity(uri, "com.android.chrome",
-                    "com.google.android.apps.chrome.Main")) {
-                startBrowserActivity(uri, "com.android.browser",
-                        "com.android.browser.BrowserActivity");
-            }
-        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-            Toast.makeText(getBaseContext(), "Media is read only!",
-                    Toast.LENGTH_SHORT).show();
-
-        } else if (Environment.MEDIA_REMOVED.equals(state)) {
-            Toast.makeText(getBaseContext(), "Media Removed!",
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getBaseContext(), "Media Error!", Toast.LENGTH_SHORT)
-                    .show();
-        }
-    }
-
-    private boolean startBrowserActivity(Uri uri, String pkg, String activity) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+        String cal = sharedPrefenceManger.getString(
+                ExpenseConstants.ExpenseEvents._ID,
+                ExpenseConstants.ExpenseEvents._ID + "");
         try {
-            browserIntent.setClassName(pkg, activity);
-            browserIntent.setData(uri);
-            startActivity(browserIntent);
-            return true;
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(getBaseContext(),
-                    "com.android.chrome package not installed", Toast.LENGTH_SHORT)
-                    .show();
-            return false;
+            cal_id = Long.parseLong(cal);
+        } catch (NumberFormatException e) {
+            Log.d("GET CALENDAR ID FAILED", cal, e);
         }
+        return cal_id;
     }
 
-    private File tmpHTMLFile;
-
-    private void writeTmpFile() {
-        tmpHTMLFile = new File(Environment.getExternalStorageDirectory()
-                .getPath() + "/Expense/chart.html");
-        try {
-            if (!tmpHTMLFile.getParentFile().exists()) {
-                tmpHTMLFile.getParentFile().mkdirs();
-            }
-            if (!tmpHTMLFile.exists()) {
-                tmpHTMLFile.createNewFile();
-            }
-            FileOutputStream fos = new FileOutputStream(tmpHTMLFile);
-            PrintWriter pw = new PrintWriter(fos);
-            pw.print(mChart.getHTMLData());
-            pw.flush();
-            pw.close();
-            fos.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.chart_option_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case (R.id.menuItemBrowser):
-                viewInBrowser();
-                break;
-            case (R.id.menuItemDebug):
-                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                    alert.setTitle("Source");
-                    TextView tv=new TextView(getBaseContext());
-                    tv.setText(mChart.getHTMLData());
-                    ScrollView sv=new ScrollView(getBaseContext());
-                    sv.addView(tv);
-                    alert.setView(sv);
-                    alert.show();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
-    }
 }

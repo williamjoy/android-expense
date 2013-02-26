@@ -314,9 +314,7 @@ public class ExpenseActivity extends Activity {
     }
 
     private void startExpenseReportActivity() {
-        StringBuilder rawTable = new StringBuilder();
         double m = 0.0;
-        final String f = "[new Date(%s,%s,%s),%.2f],\n";
         String lastDate = "";
         for (CalendarInstanceData instance : this.instanceList) {
             if (instance.getDoubleMoney() == 0.0)
@@ -327,13 +325,10 @@ public class ExpenseActivity extends Activity {
             } else {
                 lastDate = instance.getStartDate();
             }
-            String[] x = instance.getStartDate().split("/");
-            rawTable.append(String.format(f, x[2], x[0], x[1], m));
         }
 
-        Intent intent = new Intent(getBaseContext(), GoogleChartActivity.class);
-        intent.putExtra("data", rawTable.toString());
-        intent.putExtra("chart_type", GoogleChartActivity.CLOUMN_CHART);
+        Intent intent = new Intent(getBaseContext(), ExpenseStatsActivity.class);
+
         startActivity(intent);
 
     }

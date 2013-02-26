@@ -45,6 +45,8 @@
         </activity>
         <activity android:name=".GoogleChartActivity" android:uiOptions="splitActionBarWhenNarrow">
         </activity>
+        <activity android:name=".ExpenseStatsActivity" android:uiOptions="splitActionBarWhenNarrow">
+        </activity>
         <activity android:name=".Preferences">
         </activity>
         <activity android:name=".AboutActivity">

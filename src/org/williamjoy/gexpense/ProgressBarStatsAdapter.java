@@ -1,5 +1,6 @@
 package org.williamjoy.gexpense;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -15,6 +16,17 @@ public class ProgressBarStatsAdapter extends BaseAdapter {
 
     private static LayoutInflater mInflater = null;
     private int mMaxProgress = 100;
+    private List<Object> mLabels = new ArrayList<Object>();
+    private List<Integer> mVales = new ArrayList<Integer>();
+
+    public int pushData(Object object, int value) {
+        this.mLabels.add(object);
+        this.mVales.add(value);
+        if (value > mMaxProgress) {
+            mMaxProgress = value;
+        }
+        return mLabels.size();
+    }
 
     public ProgressBarStatsAdapter(Activity activity) {
         mInflater = (LayoutInflater) activity
@@ -27,19 +39,17 @@ public class ProgressBarStatsAdapter extends BaseAdapter {
         if (convertView == null)
             vi = mInflater.inflate(R.layout.stats_row, null);
         TextView label = (TextView) vi.findViewById(R.id.textViewLabel);
-        TextView value = (TextView) vi.findViewById(R.id.textViewValue);
+        label.setText(mLabels.get(position).toString());
         ProgressBar progressBarValue = (ProgressBar) vi
                 .findViewById(R.id.progressBarValue);
-        progressBarValue.setProgress(9);
+        progressBarValue.setProgress(mVales.get(position));
         progressBarValue.setMax(mMaxProgress);
-        label.setText("Hello");
-        value.setText("Hello");
         return vi;
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return mLabels.size();
     }
 
     @Override

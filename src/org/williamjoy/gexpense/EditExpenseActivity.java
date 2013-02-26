@@ -36,7 +36,6 @@ public class EditExpenseActivity extends AbstractExpenseActivity {
     protected void fillInForm() {
         Intent i = getIntent();
         this.eventID = i.getLongExtra(CalendarContract.Events._ID, -1);
-        // if eventID==-1
         moneyView = (EditText) this.findViewById(R.id.editTextMoney);
         titleView = (EditText) this.findViewById(R.id.editTextTitle);
         locationView = (EditText) this.findViewById(R.id.editTextLocation);
