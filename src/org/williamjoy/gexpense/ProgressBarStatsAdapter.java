@@ -15,7 +15,7 @@ import android.widget.TextView;
 public class ProgressBarStatsAdapter extends BaseAdapter {
 
     private static LayoutInflater mInflater = null;
-    private int mMaxProgress = 100;
+    private int mMaxProgress = 1;
     private List<Object> mLabels = new ArrayList<Object>();
     private List<Integer> mVales = new ArrayList<Integer>();
 
@@ -39,6 +39,8 @@ public class ProgressBarStatsAdapter extends BaseAdapter {
         if (convertView == null)
             vi = mInflater.inflate(R.layout.stats_row, null);
         TextView label = (TextView) vi.findViewById(R.id.textViewLabel);
+        TextView value = (TextView) vi.findViewById(R.id.textViewValue);
+        value.setText(mVales.get(position).toString());
         label.setText(mLabels.get(position).toString());
         ProgressBar progressBarValue = (ProgressBar) vi
                 .findViewById(R.id.progressBarValue);
