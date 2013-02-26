@@ -47,7 +47,7 @@ public class Preferences extends PreferenceActivity {
         bar.setTitle("Settings");
         initlizeCalendarList();
         ListPreference calendar = (ListPreference) this
-                .findPreference(GExpenseConstants.ExpenseEvents._ID);
+                .findPreference(ExpenseConstants.ExpenseEvents._ID);
         calendar.setEntries(calendarNames);
         calendar.setEntryValues(calendarIDs);
 
@@ -118,7 +118,7 @@ public class Preferences extends PreferenceActivity {
         SharedPreferences sharedPref = PreferenceManager
                 .getDefaultSharedPreferences(Preferences.this);
         int storedMonth = sharedPref.getInt(history_month.getKey(),
-                GExpenseConstants.MINUMUM_MONTHS);
+                ExpenseConstants.MINUMUM_MONTHS);
         numberPicker.setValue(storedMonth);
 
         OnClickListener dialogListener = new OnClickListener() {
@@ -156,7 +156,7 @@ public class Preferences extends PreferenceActivity {
         String selection = Calendars.ACCOUNT_TYPE + " = ? AND "
                 + Calendars.OWNER_ACCOUNT + " LIKE ? ";
         cur = cr.query(uri, EVENT_PROJECTION, selection,
-                GExpenseConstants.COM_DOT_GOOGLE, null);
+                ExpenseConstants.COM_DOT_GOOGLE, null);
         while (cur.moveToNext()) {
             long calID = cur.getLong(0);
             // String accountName = cur.getString(1);

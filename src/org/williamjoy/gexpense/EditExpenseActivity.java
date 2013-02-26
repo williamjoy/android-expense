@@ -42,10 +42,10 @@ public class EditExpenseActivity extends AbstractExpenseActivity {
         locationView = (EditText) this.findViewById(R.id.editTextLocation);
         categoryView = (Spinner) this.findViewById(R.id.category_spinner);
         ArrayAdapter<String> adapter = (ArrayAdapter<String>) categoryView.getAdapter();
-        int position = adapter.getPosition(i.getStringExtra(GExpenseConstants.ExpenseEvents.CATEGORY));
+        int position = adapter.getPosition(i.getStringExtra(ExpenseConstants.ExpenseEvents.CATEGORY));
         categoryView.setSelection(position, true);
         moneyView.setText(String.valueOf(i.getDoubleExtra(
-                GExpenseConstants.ExpenseEvents.MONEY, 0.0)));
+                ExpenseConstants.ExpenseEvents.MONEY, 0.0)));
         titleView.setText(i.getStringExtra(CalendarContract.Events.TITLE));
         locationView.setText(i
                 .getStringExtra(CalendarContract.Events.EVENT_LOCATION));

@@ -67,11 +67,11 @@ public class CreateExpenseActivity extends AbstractExpenseActivity {
         sb.append("version=1.0\n");
         sb.append("expense.").append(CalendarContract.Events.TITLE).append('=')
                 .append(title.getText()).append('\n');
-        sb.append("expense.").append(GExpenseConstants.ExpenseEvents.MONEY)
+        sb.append("expense.").append(ExpenseConstants.ExpenseEvents.MONEY)
                 .append('=').append(money.getText()).append('\n');
-        sb.append("expense.").append(GExpenseConstants.ExpenseEvents.CATEGORY)
+        sb.append("expense.").append(ExpenseConstants.ExpenseEvents.CATEGORY)
                 .append('=').append(category_name).append('\n');
-        sb.append("expense.").append(GExpenseConstants.ExpenseEvents.PAYFROM)
+        sb.append("expense.").append(ExpenseConstants.ExpenseEvents.PAYFROM)
                 .append('=').append(payFrom).append('\n');
         String properties = sb.toString();
 
@@ -108,8 +108,8 @@ public class CreateExpenseActivity extends AbstractExpenseActivity {
         SharedPreferences sharedPref = PreferenceManager
                 .getDefaultSharedPreferences(this);
 
-        String cal = sharedPref.getString(GExpenseConstants.ExpenseEvents._ID,
-                GExpenseConstants.ExpenseEvents._ID + "");
+        String cal = sharedPref.getString(ExpenseConstants.ExpenseEvents._ID,
+                ExpenseConstants.ExpenseEvents._ID + "");
         try {
             cal_id = Long.parseLong(cal);
         } catch (NumberFormatException e) {

@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/location"
-        android:text="iPad"
+        android:text="iPhone 4S"
         android:textSize="14sp"
         android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
         android:layout_below="@id/title"
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/expense_list"
-        android:text="Mars"
+        android:text="Hong Kong"
         android:textSize="10sp" />
 
     <!-- Money -->
