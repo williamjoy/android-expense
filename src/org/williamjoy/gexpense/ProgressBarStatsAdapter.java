@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,10 +43,10 @@ public class ProgressBarStatsAdapter extends BaseAdapter {
         TextView value = (TextView) vi.findViewById(R.id.textViewValue);
         value.setText(mVales.get(position).toString());
         label.setText(mLabels.get(position).toString());
-        ProgressBar progressBarValue = (ProgressBar) vi
-                .findViewById(R.id.progressBarValue);
+        ProgressBar progressBarValue = (ProgressBar) vi.findViewById(R.id.progressBarValue);
         progressBarValue.setProgress(mVales.get(position));
         progressBarValue.setMax(mMaxProgress);
+        Log.d("Data", "position="+position+",max="+mMaxProgress+",label="+mLabels.get(position)+",value="+mVales.get(position));
         return vi;
     }
 
@@ -61,7 +62,7 @@ public class ProgressBarStatsAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
 }

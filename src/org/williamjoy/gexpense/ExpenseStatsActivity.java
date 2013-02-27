@@ -8,6 +8,7 @@ import org.williamjoy.gexpense.util.DateHelper;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.SharedPreferences;
@@ -17,8 +18,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Instances;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class ExpenseStatsActivity extends Activity {
@@ -36,6 +42,23 @@ public class ExpenseStatsActivity extends Activity {
         mAdapter = new ProgressBarStatsAdapter(this);
         this.doStats();
         listView.setAdapter(mAdapter);
+
+        listView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                    int position, long id) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(ExpenseStatsActivity.this);
+                parent.getAdapter().getItem(position);
+                alert.setTitle("Source");
+                TextView tv=new TextView(getBaseContext());
+                tv.setText(mChart.getHTMLData());
+                ScrollView sv=new ScrollView(getBaseContext());
+                sv.addView(tv);
+                alert.setView(sv);
+                alert.show();
+            }
+
+        });
     }
 
     private void doStats() {
@@ -81,8 +104,6 @@ public class ExpenseStatsActivity extends Activity {
                     year = calendar.get(Calendar.YEAR);
                     month = calendar.get(Calendar.MONTH);
                     int current_month = (year << 4) + month;
-                    Log.d("Data", "last_month=" + last_month + ",current="
-                            + current_month);
                     if (current_month != last_month) {
                         if (last_month != -1) {
                             String key = String.format("%d-%02d",
