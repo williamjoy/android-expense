@@ -54,7 +54,9 @@ public class ExpenseActivity extends Activity {
         mCurrencyUnit = sharedPrefences.getString("unit", "$");
         Set<String> titles = new LinkedHashSet<String>();
         Set<String> locations = new LinkedHashSet<String>();
-
+        if (mCalendarInstanceAdapter != null) {
+            mCalendarInstanceAdapter.setCurrencyUnit(mCurrencyUnit);
+        }
         instanceList.clear();
         // Last Month to Next Month
         Calendar endTime = Calendar.getInstance();
@@ -162,7 +164,8 @@ public class ExpenseActivity extends Activity {
         ActionBar bar = this.getActionBar();
         bar.setDisplayShowHomeEnabled(false);
         bar.setTitle("Expense List");
-        mCalendarInstanceAdapter = new CalendarInstanceAdapter(this, instanceList);
+        mCalendarInstanceAdapter = new CalendarInstanceAdapter(this,
+                instanceList);
         mCalendarInstanceAdapter.setCurrencyUnit(mCurrencyUnit);
         ListView listView = (ListView) this.findViewById(R.id.listViewEvents);
 
@@ -367,9 +370,13 @@ public class ExpenseActivity extends Activity {
             case ExpenseConstants.REQUEST_CODE_CHOOSE_CALENDAR:
 
                 long ret = this.getSelectedCalendarID();
+                SharedPreferences sharedPrefences = PreferenceManager
+                        .getDefaultSharedPreferences(this);
+                String newUnit = sharedPrefences.getString("unit", "$");
 
-                if (ret != calendar_id) {
+                if (ret != calendar_id || !newUnit.equals(mCurrencyUnit)) {
                     calendar_id = ret;
+                    mCurrencyUnit = newUnit;
                     this.loadCalendarEvents();
                     if (mCalendarInstanceAdapter != null)
                         mCalendarInstanceAdapter.notifyDataSetChanged();
@@ -385,6 +392,7 @@ public class ExpenseActivity extends Activity {
             default:
                 break;
         }
+
     }
 
     static int[] colorPalette() {
