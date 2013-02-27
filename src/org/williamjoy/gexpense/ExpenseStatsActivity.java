@@ -49,9 +49,9 @@ public class ExpenseStatsActivity extends Activity {
                     int position, long id) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(ExpenseStatsActivity.this);
                 parent.getAdapter().getItem(position);
-                alert.setTitle("Source");
+                alert.setTitle("Details");
                 TextView tv=new TextView(getBaseContext());
-                tv.setText(mChart.getHTMLData());
+                tv.setText("TODO");
                 ScrollView sv=new ScrollView(getBaseContext());
                 sv.addView(tv);
                 alert.setView(sv);
@@ -62,8 +62,6 @@ public class ExpenseStatsActivity extends Activity {
     }
 
     private void doStats() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM",
-                Locale.getDefault());
         long calendar_id = getSelectedCalendarID();
         Calendar endTime = Calendar.getInstance();
         Calendar beginTime = (Calendar) endTime.clone();
@@ -106,7 +104,7 @@ public class ExpenseStatsActivity extends Activity {
                     int current_month = (year << 4) + month;
                     if (current_month != last_month) {
                         if (last_month != -1) {
-                            String key = String.format("%d-%02d",
+                            String key = String.format(Locale.getDefault(),"%d-%02d",
                                     last_month >> 4, last_month % 16 + 1);
                             this.mAdapter.pushData(key, (int) sum);
                         }

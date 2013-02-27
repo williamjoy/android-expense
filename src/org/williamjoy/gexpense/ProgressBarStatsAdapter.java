@@ -16,15 +16,15 @@ import android.widget.TextView;
 public class ProgressBarStatsAdapter extends BaseAdapter {
 
     private static LayoutInflater mInflater = null;
-    private int mMaxProgress = 1;
+    private int mMaxValue = 1;
     private List<Object> mLabels = new ArrayList<Object>();
     private List<Integer> mVales = new ArrayList<Integer>();
 
     public int pushData(Object object, int value) {
         this.mLabels.add(object);
         this.mVales.add(value);
-        if (value > mMaxProgress) {
-            mMaxProgress = value;
+        if (value > mMaxValue) {
+            mMaxValue = value;
         }
         return mLabels.size();
     }
@@ -43,10 +43,11 @@ public class ProgressBarStatsAdapter extends BaseAdapter {
         TextView value = (TextView) vi.findViewById(R.id.textViewValue);
         value.setText(mVales.get(position).toString());
         label.setText(mLabels.get(position).toString());
-        ProgressBar progressBarValue = (ProgressBar) vi.findViewById(R.id.progressBarValue);
-        progressBarValue.setProgress(mVales.get(position));
-        progressBarValue.setMax(mMaxProgress);
-        Log.d("Data", "position="+position+",max="+mMaxProgress+",label="+mLabels.get(position)+",value="+mVales.get(position));
+        ProgressBar progressBarValue = (ProgressBar) vi
+                .findViewById(R.id.progressBarValue);
+        progressBarValue.setProgress(progressBarValue.getMax() * mVales.get(position) / mMaxValue);
+        Log.d("Data", "position=" + position + ",max=" + mMaxValue + ",label="
+                + mLabels.get(position) + ",value=" + mVales.get(position));
         return vi;
     }
 

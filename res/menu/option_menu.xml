@@ -15,8 +15,8 @@
     </item>
     <item
         android:id="@+id/menuItemExpenseReport"
-        android:title="Google Column Chart"
-        android:icon="@drawable/ic_action_chart"
+        android:title="Expense Statistics"
+        android:icon="@drawable/ic_action_stats"
         android:showAsAction="ifRoom|withText">
     </item>
     <item
