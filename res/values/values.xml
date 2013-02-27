@@ -22,5 +22,17 @@
         <item>Yacol Card</item>
         <item>Yagao Card</item>
     </string-array>
-
+    
+    <string-array name="current_unit_entry_values_array">
+        <item>￥</item>
+        <item>$</item>
+        <item>£</item>
+        <item>€</item>
+    </string-array>
+        <string-array name="current_unit_entries_array">
+        <item>Chinese Renminbi yuan</item>
+        <item>Dollar</item>
+        <item>Pound</item>
+        <item>Euro</item>
+    </string-array>
 </resources>

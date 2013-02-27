@@ -44,13 +44,14 @@ public class ExpenseActivity extends Activity {
     private long calendar_id = ExpenseConstants.CALENDAR_ID_NOT_SET;
     private LinkedList<CalendarInstanceData> instanceList = new java.util.LinkedList<CalendarInstanceData>();
 
-    private CalendarInstanceAdapter adapter;
+    private CalendarInstanceAdapter mCalendarInstanceAdapter;
+    private String mCurrencyUnit = "";
 
     private void loadCalendarEvents() {
         SharedPreferences sharedPrefences = PreferenceManager
                 .getDefaultSharedPreferences(this);
         int history_month = sharedPrefences.getInt("history_month", 2);
-
+        mCurrencyUnit = sharedPrefences.getString("unit", "$");
         Set<String> titles = new LinkedHashSet<String>();
         Set<String> locations = new LinkedHashSet<String>();
 
@@ -161,10 +162,11 @@ public class ExpenseActivity extends Activity {
         ActionBar bar = this.getActionBar();
         bar.setDisplayShowHomeEnabled(false);
         bar.setTitle("Expense List");
-        adapter = new CalendarInstanceAdapter(this, instanceList);
+        mCalendarInstanceAdapter = new CalendarInstanceAdapter(this, instanceList);
+        mCalendarInstanceAdapter.setCurrencyUnit(mCurrencyUnit);
         ListView listView = (ListView) this.findViewById(R.id.listViewEvents);
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(mCalendarInstanceAdapter);
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -242,8 +244,8 @@ public class ExpenseActivity extends Activity {
                 break;
             case (R.id.menuItemRefresh):
                 this.loadCalendarEvents();
-                if (adapter != null)
-                    adapter.notifyDataSetChanged();
+                if (mCalendarInstanceAdapter != null)
+                    mCalendarInstanceAdapter.notifyDataSetChanged();
                 break;
             case (R.id.menuItemSettings):
                 this.showPreferences();
@@ -265,8 +267,9 @@ public class ExpenseActivity extends Activity {
                 this.startPieChartReportActivity();
                 break;
             case R.id.menuItemSync:
-            	startActivity(new Intent(android.provider.Settings.ACTION_SYNC_SETTINGS));
-            	break;
+                startActivity(new Intent(
+                        android.provider.Settings.ACTION_SYNC_SETTINGS));
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -368,16 +371,16 @@ public class ExpenseActivity extends Activity {
                 if (ret != calendar_id) {
                     calendar_id = ret;
                     this.loadCalendarEvents();
-                    if (adapter != null)
-                        adapter.notifyDataSetChanged();
+                    if (mCalendarInstanceAdapter != null)
+                        mCalendarInstanceAdapter.notifyDataSetChanged();
                 }
 
                 break;
             case ExpenseConstants.REQUEST_CODE_NEW_EXPENSE:
                 if (resultCode == Activity.RESULT_OK)
                     this.loadCalendarEvents();
-                if (adapter != null)
-                    adapter.notifyDataSetChanged();
+                if (mCalendarInstanceAdapter != null)
+                    mCalendarInstanceAdapter.notifyDataSetChanged();
                 break;
             default:
                 break;

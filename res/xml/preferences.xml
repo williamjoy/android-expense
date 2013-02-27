@@ -19,6 +19,15 @@
             android:key="@string/key_history"
             android:summary="Display How Many Months of Expenses"
             android:title="Display History" />
+         <ListPreference
+            android:dialogIcon="@drawable/ic_airplane"
+            android:dialogTitle="Select Currency Unit"
+            android:key="unit"
+            android:summary="Select a currency unit for display"
+            android:title="Select a currency unit"
+            android:entryValues="@array/current_unit_entry_values_array"
+            android:entries="@array/current_unit_entries_array"
+            android:defaultValue="$"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="Googe Chart API Settings" >
         <SwitchPreference

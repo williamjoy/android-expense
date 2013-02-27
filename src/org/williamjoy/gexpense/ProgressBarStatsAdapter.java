@@ -19,6 +19,7 @@ public class ProgressBarStatsAdapter extends BaseAdapter {
     private int mMaxValue = 1;
     private List<Object> mLabels = new ArrayList<Object>();
     private List<Integer> mVales = new ArrayList<Integer>();
+    private String mCurrencyUnit = "";
 
     public int pushData(Object object, int value) {
         this.mLabels.add(object);
@@ -41,11 +42,12 @@ public class ProgressBarStatsAdapter extends BaseAdapter {
             vi = mInflater.inflate(R.layout.stats_row, null);
         TextView label = (TextView) vi.findViewById(R.id.textViewLabel);
         TextView value = (TextView) vi.findViewById(R.id.textViewValue);
-        value.setText(mVales.get(position).toString());
+        value.setText(mVales.get(position) + mCurrencyUnit);
         label.setText(mLabels.get(position).toString());
         ProgressBar progressBarValue = (ProgressBar) vi
                 .findViewById(R.id.progressBarValue);
-        progressBarValue.setProgress(progressBarValue.getMax() * mVales.get(position) / mMaxValue);
+        progressBarValue.setProgress(progressBarValue.getMax()
+                * mVales.get(position) / mMaxValue);
         Log.d("Data", "position=" + position + ",max=" + mMaxValue + ",label="
                 + mLabels.get(position) + ",value=" + mVales.get(position));
         return vi;
@@ -64,6 +66,14 @@ public class ProgressBarStatsAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    public String getCurrencyUnit() {
+        return mCurrencyUnit;
+    }
+
+    public void setCurrencyUnit(String mCurrencyUnit) {
+        this.mCurrencyUnit = mCurrencyUnit;
     }
 
 }

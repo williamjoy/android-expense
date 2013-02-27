@@ -1,10 +1,7 @@
 package org.williamjoy.gexpense;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-
-import org.williamjoy.gexpense.util.DateHelper;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -21,10 +18,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class ExpenseStatsActivity extends Activity {
@@ -33,13 +30,14 @@ public class ExpenseStatsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        SharedPreferences sharedPrefences = PreferenceManager
+                .getDefaultSharedPreferences(this);
         this.setContentView(R.layout.expense_stats);
         ListView listView = (ListView) this.findViewById(R.id.listViewStats);
-
+        
+        String unit=sharedPrefences.getString("unit", "￥");
         mAdapter = new ProgressBarStatsAdapter(this);
+        mAdapter.setCurrencyUnit(unit);
         this.doStats();
         listView.setAdapter(mAdapter);
 
