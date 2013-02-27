@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:padding="1dip" >
 
     <ProgressBar
         android:id="@+id/progressBarValue"
@@ -11,6 +12,7 @@
         android:layout_alignLeft="@+id/textViewLabel"
         android:layout_alignRight="@+id/textViewValue"
         android:layout_below="@+id/textViewValue"
+        android:minHeight="40dp"
         android:max="100" />
 
     <TextView
@@ -20,7 +22,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="19dp"
-        android:text="2013-02"
+        android:textSize="14sp"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -30,7 +33,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="17dp"
-        android:text="314.15"
+        android:textColor="#CC00CC"
+        android:textSize="10sp"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
