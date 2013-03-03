@@ -32,7 +32,7 @@ public class ExpenseStatsActivity extends Activity {
         this.setContentView(R.layout.expense_stats);
         ListView listView = (ListView) this.findViewById(R.id.listViewStats);
         
-        String unit=sharedPrefences.getString("unit", "￥");
+        String unit=sharedPrefences.getString("unit", "$");
         mAdapter = new ProgressBarStatsAdapter(this);
         mAdapter.setCurrencyUnit(unit);
         this.doStats();
