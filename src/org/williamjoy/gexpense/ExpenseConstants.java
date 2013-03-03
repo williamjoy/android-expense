@@ -15,7 +15,7 @@ public class ExpenseConstants {
 
     public static final String[] COM_DOT_GOOGLE = new String[] { "com.google",
             "%@group.calendar.google.com%" };
-
+    public static final String EVENT_TILE_DELIMITER_REGEX = "\\|";
     public class ExpenseEvents {
         public static final String _ID = "calendar_id";
         public static final String MONEY = "money";

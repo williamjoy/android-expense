@@ -96,7 +96,7 @@ public class ExpenseActivity extends Activity {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(beginVal);
             String startDate = formatter.format(calendar.getTime());
-            String s[] = title.split("\\|");
+            String s[] = title.split(ExpenseConstants.EVENT_TILE_DELIMITER_REGEX);
             String what = s[0].trim();
             if (s.length > 1) {
                 try {

@@ -85,7 +85,7 @@ public class ExpenseStatsActivity extends Activity {
 
             long beginVal = cur.getLong(0);
             title = cur.getString(1);
-            String s[] = title.split("\\|");
+            String s[] = title.split(ExpenseConstants.EVENT_TILE_DELIMITER_REGEX);
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(beginVal);
