@@ -7,8 +7,6 @@ public class CloumnChart {
     private int mWidth = 480;
     private int mHeight = 800;
     private boolean enable3D = true;
-    private int _id;
-
     public String getHTMLData() {
         return _head + String.format(_data)
                 + String.format(options, mTitle, enable3D, mWidth, mHeight);

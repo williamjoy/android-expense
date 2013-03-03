@@ -3,7 +3,6 @@ package org.williamjoy.gexpense;
 import java.util.Calendar;
 import java.util.Locale;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -16,14 +15,12 @@ import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Instances;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-@SuppressLint("SetJavaScriptEnabled")
 public class ExpenseStatsActivity extends Activity {
     ProgressBarStatsAdapter mAdapter;
 
@@ -55,7 +52,6 @@ public class ExpenseStatsActivity extends Activity {
                 alert.setView(sv);
                 alert.show();
             }
-
         });
     }
 
@@ -118,7 +114,7 @@ public class ExpenseStatsActivity extends Activity {
         }
 
         if (last_month != -1) {
-            String key = String.format("%d-%02d", year, month + 1);
+            String key = String.format(Locale.getDefault(),"%d-%02d", year, month + 1);
             this.mAdapter.pushData(key, (int) sum);
         }
     }
