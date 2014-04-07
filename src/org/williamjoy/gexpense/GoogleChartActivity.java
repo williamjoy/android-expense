@@ -59,7 +59,6 @@ public class GoogleChartActivity extends Activity {
         webSettings.setCacheMode(sharedPrefenceManger.getBoolean(
                 "LOAD_CACHE_ONLY", false) ? WebSettings.LOAD_CACHE_ONLY
                 : WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        webSettings.setLightTouchEnabled(true);
         final Activity activity = this;
         webview.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
@@ -169,6 +168,7 @@ public class GoogleChartActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.chart_option_menu, menu);
+        menu.add("History");
         return true;
     }
 

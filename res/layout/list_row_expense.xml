@@ -40,7 +40,7 @@
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/expense_list"
         android:text="Hong Kong"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
     <!-- Money -->
 
@@ -54,7 +54,7 @@
         android:gravity="left"
         android:text="3.14"
         android:textColor="#CC00CC"
-        android:textSize="10sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         android:typeface="monospace" />
 
@@ -70,7 +70,7 @@
         android:gravity="right"
         android:text="2013-03-28"
         android:textColor="#9966FF"
-        android:textSize="10sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         android:typeface="monospace" />
 
