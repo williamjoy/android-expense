@@ -26,6 +26,12 @@
         android:showAsAction="withText|ifRoom">
     </item>
     <item
+        android:id="@+id/menuItemGoogleChart"
+        android:title="Google Chart"
+        android:icon="@drawable/ic_action_chart"
+        android:showAsAction="withText|ifRoom">
+    </item>
+    <item
         android:id="@+id/menuItemSettings"
         android:title="Settings">
     </item>

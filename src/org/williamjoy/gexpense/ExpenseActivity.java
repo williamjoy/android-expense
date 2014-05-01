@@ -264,6 +264,9 @@ public class ExpenseActivity extends Activity {
 		case R.id.menuItemPieChart:
 			this.startPieChartReportActivity();
 			break;
+		case R.id.menuItemGoogleChart:
+			this.startGoogleChartReportActivity();
+			break;
 		case R.id.menuItemSync:
 			startActivity(new Intent(
 					android.provider.Settings.ACTION_SYNC_SETTINGS));
@@ -274,6 +277,11 @@ public class ExpenseActivity extends Activity {
 		return true;
 	}
 
+	private void startGoogleChartReportActivity() {
+		Intent intent = new Intent(getBaseContext(), GoogleChartJSActivity.class);
+//		intent.putExtra("data", data);
+		startActivity(intent);
+	}
 	private void startPieChartReportActivity() {
 		// expense type pie chart
 		HashMap<String, Double> data = new HashMap<String, Double>();
