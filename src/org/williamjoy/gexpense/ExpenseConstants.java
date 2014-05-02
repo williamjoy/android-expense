@@ -20,6 +20,7 @@ public class ExpenseConstants {
         public static final String _ID = "calendar_id";
         public static final String MONEY = "money";
         public static final String CATEGORY = "category";
-        public static final String PAYFROM = "payfom";
+        public static final String PAYFROM = "payfrom";
+		public static final String TITLE = "title";
     }
 }
