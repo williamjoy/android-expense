@@ -113,7 +113,7 @@ public class Preferences extends PreferenceActivity {
                 .findViewById(R.id.seekBarHistoryMonth);
 
         numberPicker.setMinValue(1);
-        numberPicker.setMaxValue(12);
+        numberPicker.setMaxValue(24);
         Preference history_month = (Preference) findPreference("history_month");
         SharedPreferences sharedPref = PreferenceManager
                 .getDefaultSharedPreferences(Preferences.this);

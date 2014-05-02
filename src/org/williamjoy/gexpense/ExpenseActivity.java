@@ -44,10 +44,13 @@ public class ExpenseActivity extends Activity {
 
 	private CalendarInstanceAdapter mCalendarInstanceAdapter;
 	private String mCurrencyUnit = "";
+	private String googleDataTableHeader="['Date', 'Pay Method', 'Category', 'Money']";
+	private StringBuilder googleDataTableRows=new StringBuilder();
 
 	private void loadCalendarEvents() {
 		SharedPreferences sharedPrefences = PreferenceManager
 				.getDefaultSharedPreferences(this);
+		googleDataTableRows = new StringBuilder();
 		int history_month = sharedPrefences.getInt("history_month", 2);
 		mCurrencyUnit = sharedPrefences.getString("unit", "$");
 		Set<String> titles = new LinkedHashSet<String>();
@@ -118,6 +121,14 @@ public class ExpenseActivity extends Activity {
 			iCal.setDtend(dtend);
 			iCal.setTimeZone(cur.getString(7));
 			instanceList.add(iCal);
+			googleDataTableRows.append(",\n[ new Date(" 
+					+calendar.get(Calendar.YEAR) + ','+
+					+calendar.get(Calendar.MONTH) + ','+
+					+calendar.get(Calendar.DAY_OF_MONTH) + 
+					"),");
+			googleDataTableRows.append('\'').append(iCal.getPayFrom()).append("',");
+			googleDataTableRows.append('\'').append(iCal.getCategory()).append("',");	
+			googleDataTableRows.append(iCal.getMoney()).append(']');
 		}
 		Editor editor = sharedPrefences.edit();
 		editor.putStringSet("what", titles);
@@ -279,7 +290,8 @@ public class ExpenseActivity extends Activity {
 
 	private void startGoogleChartReportActivity() {
 		Intent intent = new Intent(getBaseContext(), GoogleChartJSActivity.class);
-//		intent.putExtra("data", data);
+		intent.putExtra("googleDataTableHeader", this.googleDataTableHeader);
+		intent.putExtra("googleDataTableRows"  , this.googleDataTableRows.toString());
 		startActivity(intent);
 	}
 	private void startPieChartReportActivity() {
