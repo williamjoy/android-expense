@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var dataTable = google.visualization.arrayToDataTable([
+          <__::DATATABLE_HEADER::__><__::DATATABLE_ROWS::__>
+        ]);
+		var result = google.visualization.data.group(
+		  dataTable,
+		  [0],
+		  [{'column': 3, 'aggregation': google.visualization.data.sum, 'type': 'number'}]
+		);
+        var options = {
+          title: 'Google Chart Report',
+          hAxis: {title: 'Date'},
+          vAxis: {title: 'Money', logScale: 'true'}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(result, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 100%; height: 200%;"></div>
+  </body>
+</html>
+
+

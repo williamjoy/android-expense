@@ -1,10 +1,14 @@
 package org.williamjoy.gexpense;
 
+import org.williamjoy.gexpense.googlechart.RawTextHelper;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -12,12 +16,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+@SuppressLint("SetJavaScriptEnabled")
 public class GoogleChartJSActivity extends Activity {
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         Intent input = this.getIntent();
         String tableHeader=input.getStringExtra("googleDataTableHeader");
         String tableRows=input.getStringExtra("googleDataTableRows");
@@ -50,8 +56,10 @@ public class GoogleChartJSActivity extends Activity {
             }
         });
 
-        
-        webview.loadData("<p>Hello</p>\n"+tableHeader+tableRows, "text/html", null);
+        String data=RawTextHelper.getRawTextFromResource(getApplicationContext(), R.raw.google_chart);
+        data=data.replace("<__::DATATABLE_HEADER::__>", tableHeader);
+        data=data.replace("<__::DATATABLE_ROWS::__>", tableRows);
+        webview.loadData(data, "text/html", null);
         
     }
 }
