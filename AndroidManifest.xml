@@ -45,6 +45,6 @@
         </activity>
         <activity android:name=".AboutActivity">
         </activity>
-        <activity android:name=".GoogleChartJSActivity"></activity>
+        <activity android:name=".GoogleChartActivity"></activity>
     </application>
 </manifest>

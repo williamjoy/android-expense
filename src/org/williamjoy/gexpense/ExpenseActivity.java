@@ -283,7 +283,7 @@ public class ExpenseActivity extends Activity {
 	}
 
 	private void startGoogleChartReportActivity() {
-		Intent intent = new Intent(getBaseContext(), GoogleChartJSActivity.class);
+		Intent intent = new Intent(getBaseContext(), GoogleChartActivity.class);
 		intent.putExtra("googleDataTableHeader", this.googleDataTableHeader);
 		intent.putExtra("googleDataTableRows"  , this.googleDataTableRows.toString());
 		startActivity(intent);

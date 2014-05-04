@@ -18,18 +18,16 @@
         var byPayment = google.visualization.data.group( dataTable,
             [1], [ {'column': 3, 'aggregation': google.visualization.data.sum,  'type': 'number'} ]);
 
-        new google.visualization.ColumnChart(document.getElementById('chart_div_by_month')).draw(byMonth, { title: 'Expense - by Month', vAxis: {title: 'Money'}});
+        new google.visualization.ColumnChart(document.getElementById('chart_div_by_month')).draw(byMonth, { title: 'Expense - by Month', vAxis: {title: '$'}, legend:{position:'<__::LEGEND_POSITION::__>'}});
         
-        var chart_byCategory = new google.visualization.PieChart(document.getElementById('chart_div_by_category'));
-        chart_byCategory.draw(byCategory, {title: 'Expense - by Category'});
+        new google.visualization.PieChart(document.getElementById('chart_div_by_category')).draw(byCategory, {title: 'Expense - by Category', legend:{position:'<__::LEGEND_POSITION::__>'}});
 
-        new google.visualization.PieChart(document.getElementById('chart_div_by_payment')).draw(byPayment,  {title: 'Expense - by Payment' });
+        new google.visualization.PieChart(document.getElementById('chart_div_by_payment')).draw(byPayment,  {title: 'Expense - by Payment' ,legend:{position:'<__::LEGEND_POSITION::__>'}});
       }
     </script>
   </head>
   <body>
-    <code>Google Chart Report</code>
-    <div id="chart_div_by_month"    style="width: 100%; height: 100%;"></div></br>
-    <div id="chart_div_by_category" style="width: 100%; height: 100%;"></div></br>
-    <div id="chart_div_by_payment"  style="width: 100%; height: 100%;"></div></br>
+    <div id="chart_div_by_month"    style="<__::COLUMN_CHART_STYLE::__>"></div></br>
+    <div id="chart_div_by_category" style="<__::PIE_CHART_STYLE::__>"></div></br>
+    <div id="chart_div_by_payment"  style="<__::PIE_CHART_STYLE::__>"></div>
   </body></html>
