@@ -60,6 +60,5 @@ public class GoogleChartJSActivity extends Activity {
         data=data.replace("<__::DATATABLE_HEADER::__>", tableHeader);
         data=data.replace("<__::DATATABLE_ROWS::__>", tableRows);
         webview.loadData(data, "text/html", null);
-        
     }
 }
