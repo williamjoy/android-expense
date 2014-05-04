@@ -1,6 +1,6 @@
 package org.williamjoy.gexpense;
 
-import org.williamjoy.gexpense.googlechart.RawTextHelper;
+import org.williamjoy.gexpense.util.RawTextHelper;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

@@ -45,6 +45,6 @@
         </activity>
         <activity android:name=".AboutActivity">
         </activity>
-        <activity android:name="org.williamjoy.gexpense.GoogleChartJSActivity"></activity>    </application>
-
+        <activity android:name=".GoogleChartJSActivity"></activity>
+    </application>
 </manifest>

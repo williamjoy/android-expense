@@ -263,17 +263,11 @@ public class ExpenseActivity extends Activity {
 		case (R.id.menuItemSettings):
 			this.showPreferences();
 			break;
-		case (R.id.menuItemExpenseReport):
-			this.startExpenseReportActivity();
-			break;
 		case R.id.menuItemHelp:
 			Intent browserIntent = new Intent(Intent.ACTION_VIEW);
 			browserIntent.setData(Uri
 					.parse("https://github.com/williamjoy/android-expense"));
 			startActivity(browserIntent);
-			break;
-		case R.id.menuItemPieChart:
-			this.startPieChartReportActivity();
 			break;
 		case R.id.menuItemGoogleChart:
 			this.startGoogleChartReportActivity();
@@ -294,37 +288,6 @@ public class ExpenseActivity extends Activity {
 		intent.putExtra("googleDataTableRows"  , this.googleDataTableRows.toString());
 		startActivity(intent);
 	}
-	private void startPieChartReportActivity() {
-		// expense type pie chart
-		HashMap<String, Double> data = new HashMap<String, Double>();
-		for (CalendarInstanceData instance : this.instanceList) {
-			String key = instance.getCategory();
-			if (key == null) {
-				key = "Other";
-			}
-			double sum = data.containsKey(key) ? data.get(key) : 0;
-			sum += instance.getDoubleMoney();
-			data.put(key, sum);
-		}
-		Intent intent = new Intent(getBaseContext(), GoogleChartActivity.class);
-		intent.putExtra("data", data);
-		startActivity(intent);
-
-		// pay from pie chart
-		data.clear();
-		for (CalendarInstanceData instance : this.instanceList) {
-			String key = instance.getPayFrom();
-			if (key == null) {
-				key = "Cash";
-			}
-			double sum = data.containsKey(key) ? data.get(key) : 0;
-			sum += instance.getDoubleMoney();
-			data.put(key, sum);
-		}
-		intent = new Intent(getBaseContext(), GoogleChartActivity.class);
-		intent.putExtra("data", data);
-		startActivity(intent);
-	}
 
 	private void showPreferences() {
 		Intent settingsActivity = new Intent(getBaseContext(),
@@ -333,27 +296,7 @@ public class ExpenseActivity extends Activity {
 		startActivityForResult(settingsActivity,
 				ExpenseConstants.REQUEST_CODE_CHOOSE_CALENDAR);
 	}
-
-	private void startExpenseReportActivity() {
-		double m = 0.0;
-		String lastDate = "";
-		for (CalendarInstanceData instance : this.instanceList) {
-			if (instance.getDoubleMoney() == 0.0)
-				continue;
-			m = m + instance.getDoubleMoney();
-			if (lastDate.equals(instance.getStartDate())) {
-				continue;
-			} else {
-				lastDate = instance.getStartDate();
-			}
-		}
-
-		Intent intent = new Intent(getBaseContext(), ExpenseStatsActivity.class);
-
-		startActivity(intent);
-
-	}
-
+	
 	private void showExpenseEventsView() {
 		setContentView(R.layout.main);
 		loadCalendarEvents();

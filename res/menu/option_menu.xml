@@ -14,18 +14,6 @@
         android:showAsAction="ifRoom|withText">
     </item>
     <item
-        android:id="@+id/menuItemExpenseReport"
-        android:title="Expense Statistics"
-        android:icon="@drawable/ic_action_stats"
-        android:showAsAction="ifRoom|withText">
-    </item>
-    <item
-        android:id="@+id/menuItemPieChart"
-        android:title="Google Pie Chart"
-        android:icon="@drawable/ic_action_chart"
-        android:showAsAction="withText|ifRoom">
-    </item>
-    <item
         android:id="@+id/menuItemGoogleChart"
         android:title="Google Chart"
         android:icon="@drawable/ic_action_chart"
