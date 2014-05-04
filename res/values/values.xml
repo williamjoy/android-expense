@@ -11,7 +11,10 @@
         <item>Travelling</item>
         <item>Health Care</item>
         <item>Telecommunication</item>
+        <item>Education</item>
         <item>Digital Product</item>
+        <item>Entertainment</item>
+        <item>Gifts</item>
         <item>Housing</item>
         <item>Other</item>
     </string-array>
@@ -19,8 +22,9 @@
         <item>Cash</item>
         <item>Credit Card</item>
         <item>Bank Card</item>
-        <item>Yacol Card</item>
-        <item>Yagao Card</item>
+        <item>Alipay</item>
+        <item>Paypal</item>
+        <item>Loan</item>
     </string-array>
     
     <string-array name="current_unit_entry_values_array">
