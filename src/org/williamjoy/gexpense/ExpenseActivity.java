@@ -62,7 +62,12 @@ public class ExpenseActivity extends Activity {
 		Calendar endTime = Calendar.getInstance();
 		Calendar beginTime = (Calendar) endTime.clone();
 		endTime.add(Calendar.MONTH, +1);
-		beginTime.add(Calendar.MONTH, -history_month);
+
+		beginTime.set(Calendar.DAY_OF_MONTH, 1);
+		beginTime.set(Calendar.HOUR_OF_DAY, 0);
+		beginTime.set(Calendar.MINUTE, 0);
+		beginTime.add(Calendar.MONTH, 1 - history_month);
+
 		long startMillis = beginTime.getTimeInMillis();
 		long endMillis = endTime.getTimeInMillis();
 
