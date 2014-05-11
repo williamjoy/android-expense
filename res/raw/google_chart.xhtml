@@ -9,15 +9,16 @@
         ]);
         function getMonth(d) {return new Date(d.getYear(), d.getMonth(),1);}
         var byMonth = google.visualization.data.group( dataTable,
-            [{'column': 0, 'modifier': getMonth,  'type': 'date'}],
-            [{'column': 3, 'aggregation': google.visualization.data.sum,  'type': 'number'} ]);
+            [{'column': 0, 'modifier': getMonth, 'type': 'date'}],
+            [{'column': 3, 'aggregation': google.visualization.data.sum, 'type': 'number'} ]);
+        new google.visualization.DateFormat({ pattern: 'yyyy, MMMM' }).format(byMonth,0);
         var byCategory = google.visualization.data.group( dataTable,
-            [2], [ {'column': 3, 'aggregation': google.visualization.data.sum,  'type': 'number'} ]);
+            [2], [ {'column': 3, 'aggregation': google.visualization.data.sum, 'type': 'number'} ]);
         var byPayment = google.visualization.data.group( dataTable,
-            [1], [ {'column': 3, 'aggregation': google.visualization.data.sum,  'type': 'number'} ]);
-        new google.visualization.ColumnChart(document.getElementById('chart_div_by_month')).draw(byMonth, { title: 'Expense - by Month', vAxis: {title: '$'}, legend:{position:'<__::LEGEND_POSITION::__>'}});
+            [1], [ {'column': 3, 'aggregation': google.visualization.data.sum, 'type': 'number'} ]);
+        new google.visualization.ColumnChart(document.getElementById('chart_div_by_month')).draw(byMonth, { title: 'Expense - by Month', vAxis: {title: '$'}, hAxis: {format:'yyyy, MMM'}, legend:{position:'<__::LEGEND_POSITION::__>'}});
         new google.visualization.PieChart(document.getElementById('chart_div_by_category')).draw(byCategory, {title: 'Expense - by Category', legend:{position:'<__::LEGEND_POSITION::__>'}});
-        new google.visualization.PieChart(document.getElementById('chart_div_by_payment')).draw(byPayment,  {title: 'Expense - by Payment' ,legend:{position:'<__::LEGEND_POSITION::__>'}});
+        new google.visualization.PieChart(document.getElementById('chart_div_by_payment')).draw(byPayment, {title: 'Expense - by Payment' ,legend:{position:'<__::LEGEND_POSITION::__>'}});
       }
     </script>
   </head>
