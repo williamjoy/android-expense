@@ -7,9 +7,7 @@
         var dataTable = google.visualization.arrayToDataTable([
           <__::DATATABLE_HEADER::__><__::DATATABLE_ROWS::__>
         ]);
-        function getMonth(d) {
-            return new Date(d.getYear()+1900,d.getMonth(),1);
-        }
+        function getMonth(d) {return new Date(d.getYear(), d.getMonth(),1);}
         var byMonth = google.visualization.data.group( dataTable,
             [{'column': 0, 'modifier': getMonth,  'type': 'date'}],
             [{'column': 3, 'aggregation': google.visualization.data.sum,  'type': 'number'} ]);
@@ -17,17 +15,14 @@
             [2], [ {'column': 3, 'aggregation': google.visualization.data.sum,  'type': 'number'} ]);
         var byPayment = google.visualization.data.group( dataTable,
             [1], [ {'column': 3, 'aggregation': google.visualization.data.sum,  'type': 'number'} ]);
-
         new google.visualization.ColumnChart(document.getElementById('chart_div_by_month')).draw(byMonth, { title: 'Expense - by Month', vAxis: {title: '$'}, legend:{position:'<__::LEGEND_POSITION::__>'}});
-        
         new google.visualization.PieChart(document.getElementById('chart_div_by_category')).draw(byCategory, {title: 'Expense - by Category', legend:{position:'<__::LEGEND_POSITION::__>'}});
-
         new google.visualization.PieChart(document.getElementById('chart_div_by_payment')).draw(byPayment,  {title: 'Expense - by Payment' ,legend:{position:'<__::LEGEND_POSITION::__>'}});
       }
     </script>
   </head>
   <body>
-    <div id="chart_div_by_month"    style="<__::COLUMN_CHART_STYLE::__>"></div></br>
+    <div id="chart_div_by_month"    style="<__::COLUMN_CHART_STYLE::__>">Loading Google Chart ...</div></br>
     <div id="chart_div_by_category" style="<__::PIE_CHART_STYLE::__>"></div></br>
     <div id="chart_div_by_payment"  style="<__::PIE_CHART_STYLE::__>"></div>
   </body></html>
