@@ -7,7 +7,7 @@
         var dataTable = google.visualization.arrayToDataTable([
           <__::DATATABLE_HEADER::__><__::DATATABLE_ROWS::__>
         ]);
-        function getMonth(d) {return new Date(d.getYear(), d.getMonth(),1);}
+        function getMonth(d) {return new Date(d.getFullYear(), d.getMonth(),1);}
         var byMonth = google.visualization.data.group( dataTable,
             [{'column': 0, 'modifier': getMonth, 'type': 'date'}],
             [{'column': 3, 'aggregation': google.visualization.data.sum, 'type': 'number'} ]);

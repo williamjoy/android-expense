@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.williamjoy.gexpense"
-    android:versionCode="5"
-    android:versionName="1.2" >
+    android:versionCode="6"
+    android:versionName="1.3" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -29,7 +29,6 @@
             android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,8 +37,6 @@
         <activity android:name=".EditExpenseActivity" android:uiOptions="splitActionBarWhenNarrow">
         </activity>
         <activity android:name=".GoogleChartActivity" android:uiOptions="splitActionBarWhenNarrow">
-        </activity>
-        <activity android:name=".ExpenseStatsActivity" android:uiOptions="splitActionBarWhenNarrow">
         </activity>
         <activity android:name=".Preferences">
         </activity>
