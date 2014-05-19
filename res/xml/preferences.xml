@@ -36,6 +36,11 @@
             android:summaryOn="3D chart enabled"
             android:title="3D Pie Chart" />
         <SwitchPreference
+            android:key="isStacked"
+            android:summaryOff="Stacked Column Chart disabled"
+            android:summaryOn="Stacked Column Chart enabled"
+            android:title="Stacked Column Chart" />
+        <SwitchPreference
             android:key="LOAD_CACHE_ONLY"
             android:summaryOff="Load from Nextwork if Cache not available"
             android:summaryOn="Load Cache Only"
