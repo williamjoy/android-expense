@@ -3,6 +3,7 @@
     <script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
+      var numberFormat = new google.visualization.NumberFormat({ pattern: '.##' });
       function toMultiDimensionTable(dt){
         var data = new google.visualization.DataTable();
         data.addColumn('date', 'Date');
@@ -36,8 +37,10 @@
             [{'column': 3, 'aggregation': google.visualization.data.sum, 'type': 'number'} ]);
         var byCategory = google.visualization.data.group( dataTable,
             [2], [ {'column': 3, 'aggregation': google.visualization.data.sum, 'type': 'number'} ]);
+        numberFormat.format(byCategory, 1);
         var byPayment = google.visualization.data.group( dataTable,
             [1], [ {'column': 3, 'aggregation': google.visualization.data.sum, 'type': 'number'} ]);
+        numberFormat.format(byPayment, 1);
         new google.visualization.ColumnChart(document.getElementById('chart_div_category_monthly')).draw(toMultiDimensionTable(categoryMonthly), { title: 'Expense Category - Monthly', vAxis: {title: '$'}, hAxis: {format:'yyyy, MMM'}, 'isStacked': true, legend:{position:'bottom'}});
         new google.visualization.ColumnChart(document.getElementById('chart_div_payment_monthly')).draw(toMultiDimensionTable(paymentMonthly), { title: 'Expense Payment - Monthly', vAxis: {title: '$'}, hAxis: {format:'yyyy, MMM'}, 'isStacked': true, legend:{position:'bottom'}});
 
