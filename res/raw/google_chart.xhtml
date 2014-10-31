@@ -1,9 +1,8 @@
 <html><head>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
+      google.load("visualization", "1.0", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
-      var numberFormat = new google.visualization.NumberFormat({ pattern: '.##' });
       function toMultiDimensionTable(dt){
         var data = new google.visualization.DataTable();
         data.addColumn('date', 'Date');
@@ -25,8 +24,9 @@
         return data;
       }
       function drawChart() {
+        var numberFormat = new google.visualization.NumberFormat({ pattern: '.##' });
         var dataTable = google.visualization.arrayToDataTable([
-          <__::DATATABLE_HEADER::__><__::DATATABLE_ROWS::__>
+          __::DATATABLE_HEADER::__ __::DATATABLE_ROWS::__
         ]);
         function getMonth(d) {return new Date(d.getFullYear(), d.getMonth(),1);}
         var categoryMonthly = google.visualization.data.group( dataTable,
@@ -41,17 +41,17 @@
         var byPayment = google.visualization.data.group( dataTable,
             [1], [ {'column': 3, 'aggregation': google.visualization.data.sum, 'type': 'number'} ]);
         numberFormat.format(byPayment, 1);
-        new google.visualization.ColumnChart(document.getElementById('chart_div_category_monthly')).draw(toMultiDimensionTable(categoryMonthly), { title: 'Expense Category - Monthly', vAxis: {title: '$'}, hAxis: {format:'yyyy, MMM'}, 'isStacked': true, legend:{position:'bottom'}});
-        new google.visualization.ColumnChart(document.getElementById('chart_div_payment_monthly')).draw(toMultiDimensionTable(paymentMonthly), { title: 'Expense Payment - Monthly', vAxis: {title: '$'}, hAxis: {format:'yyyy, MMM'}, 'isStacked': true, legend:{position:'bottom'}});
+        new google.visualization.ColumnChart(document.getElementById('chart_div_category_monthly')).draw(toMultiDimensionTable(categoryMonthly), { title: 'Expense Category - Monthly', vAxis: {title: '$',gridlines:{count: 10} }, hAxis: {format:'yyyy, MMM',gridlines:{count: __::H_AXIS_GRIDLINES_COUNT::__} }, 'isStacked': true, legend:{position:'bottom'}});
+        new google.visualization.ColumnChart(document.getElementById('chart_div_payment_monthly')).draw(toMultiDimensionTable(paymentMonthly), { title: 'Expense Payment - Monthly', vAxis: {title: '$', gridlines:{count:10} }, hAxis: {format:'yyyy, MMM', gridlines:{count: __::H_AXIS_GRIDLINES_COUNT::__} }, 'isStacked': true, legend:{position:'bottom'}});
 
-        new google.visualization.PieChart(document.getElementById('chart_div_by_category')).draw(byCategory, {title: 'Expense - by Category', legend:{position:'<__::LEGEND_POSITION::__>'}});
-        new google.visualization.PieChart(document.getElementById('chart_div_by_payment')).draw(byPayment, {title: 'Expense - by Payment' ,legend:{position:'<__::LEGEND_POSITION::__>'}});
+        new google.visualization.PieChart(document.getElementById('chart_div_by_category')).draw(byCategory, {title: 'Expense - by Category', legend:{position:'__::LEGEND_POSITION::__'}});
+        new google.visualization.PieChart(document.getElementById('chart_div_by_payment')).draw(byPayment, {title: 'Expense - by Payment' ,legend:{position:'__::LEGEND_POSITION::__'}});
       }
     </script>
   </head>
   <body>
-    <div id="chart_div_category_monthly" style="<__::COLUMN_CHART_STYLE::__>">Loading Google Chart ...</div></br>
-    <div id="chart_div_payment_monthly"  style="<__::COLUMN_CHART_STYLE::__>"></div></br>
-    <div id="chart_div_by_category" style="<__::PIE_CHART_STYLE::__>"></div></br>
-    <div id="chart_div_by_payment"  style="<__::PIE_CHART_STYLE::__>"></div>
+    <div id="chart_div_category_monthly" style="__::COLUMN_CHART_STYLE::__">Loading Google Chart ...</div><br/>
+    <div id="chart_div_payment_monthly"  style="__::COLUMN_CHART_STYLE::__"></div><br/>
+    <div id="chart_div_by_category" style="__::PIE_CHART_STYLE::__"></div><br/>
+    <div id="chart_div_by_payment"  style="__::PIE_CHART_STYLE::__"></div>
   </body></html>

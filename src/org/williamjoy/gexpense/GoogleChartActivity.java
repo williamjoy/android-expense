@@ -59,11 +59,12 @@ public class GoogleChartActivity extends Activity {
 
         int orientation = this.getResources().getConfiguration().orientation;
         String data=RawTextHelper.getRawTextFromResource(getApplicationContext(), R.raw.google_chart);
-        data=data.replace("<__::DATATABLE_HEADER::__>", tableHeader);
-        data=data.replace("<__::DATATABLE_ROWS::__>", tableRows);
-        data=data.replace("<__::LEGEND_POSITION::__>"   , orientation==Configuration.ORIENTATION_PORTRAIT?"bottom":"right");
-        data=data.replace("<__::COLUMN_CHART_STYLE::__>", orientation==Configuration.ORIENTATION_PORTRAIT?"width: 120%; height: 60%;":"width: 100%; height: 100%;");
-        data=data.replace("<__::PIE_CHART_STYLE::__>"   , orientation==Configuration.ORIENTATION_PORTRAIT?"width: 120%; height: 60%;":"width: 100%; height: 100%;");
+        data=data.replace("__::DATATABLE_HEADER::__", tableHeader);
+        data=data.replace("__::DATATABLE_ROWS::__", tableRows);
+        data=data.replace("__::LEGEND_POSITION::__"   , orientation==Configuration.ORIENTATION_PORTRAIT?"bottom":"right");
+        data=data.replace("__::COLUMN_CHART_STYLE::__", orientation==Configuration.ORIENTATION_PORTRAIT?"width: 120%; height: 60%;":"width: 100%; height: 100%;");
+        data=data.replace("__::PIE_CHART_STYLE::__"   , orientation==Configuration.ORIENTATION_PORTRAIT?"width: 120%; height: 60%;":"width: 100%; height: 100%;");
+        data=data.replace("__::H_AXIS_GRIDLINES_COUNT::__", sharedPrefenceManger.getInt("history_month", 12) + "");
         webview.loadData(data, "text/html", null);
     }
 }
