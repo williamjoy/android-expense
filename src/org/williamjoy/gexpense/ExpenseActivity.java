@@ -36,6 +36,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
+import static org.williamjoy.gexpense.ExpenseConstants.ExpenseEvents._ID;
+
 public class ExpenseActivity extends Activity {
 
 	private long calendar_id = ExpenseConstants.CALENDAR_ID_NOT_SET;
@@ -71,7 +73,7 @@ public class ExpenseActivity extends Activity {
 		long startMillis = beginTime.getTimeInMillis();
 		long endMillis = endTime.getTimeInMillis();
 
-		Cursor cur = null;
+		Cursor cur;
 		ContentResolver cr = getContentResolver();
 
 		// Construct the query with the desired date range.
@@ -87,7 +89,7 @@ public class ExpenseActivity extends Activity {
 		SimpleDateFormat formatter = DateHelper.getDateFormat();
 
 		while (cur.moveToNext()) {
-			String title = null;
+			String title;
 			CalendarInstanceData iCal = new CalendarInstanceData();
 
 			long beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
@@ -239,8 +241,7 @@ public class ExpenseActivity extends Activity {
 	}
 
 	protected boolean startDeleteExpenseActivity(long eventID) {
-		Uri deleteUri = null;
-		deleteUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventID);
+		Uri deleteUri = ContentUris.withAppendedId(Events.CONTENT_URI, eventID);
 		int rows = getContentResolver().delete(deleteUri, null, null);
 		Log.i(DEBUG_TAG, "Rows deleted: " + rows);
 		return false;
@@ -316,8 +317,8 @@ public class ExpenseActivity extends Activity {
 				.getDefaultSharedPreferences(this);
 
 		String cal = sharedPrefenceManger.getString(
-				ExpenseConstants.ExpenseEvents._ID,
-				ExpenseConstants.ExpenseEvents._ID + "");
+				_ID,
+				_ID);
 		try {
 			cal_id = Long.parseLong(cal);
 		} catch (NumberFormatException e) {
@@ -357,28 +358,4 @@ public class ExpenseActivity extends Activity {
 
 	}
 
-	static int[] colorPalette() {
-		Random randomGenerator = new Random();
-
-		int[] colors = new int[120];
-		int index = 0;
-		int red, green, blue, r = 0, g = 0, b = 0;
-		while (index < colors.length) {
-			red = randomGenerator.nextInt(255);
-			green = randomGenerator.nextInt(255);
-			blue = randomGenerator.nextInt(255);
-			if (red + green + blue < 60 || red + green + blue > 750)
-				continue;
-			int colorDiff = Math.abs(red - r) + Math.abs(green - g)
-					+ Math.abs(blue - b);
-			if (colorDiff < 120)
-				continue;
-
-			colors[index++] = Color.rgb(red, green, blue);
-			r = red;
-			g = green;
-			b = blue;
-		}
-		return colors;
-	}
 }
