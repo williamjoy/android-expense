@@ -1,8 +1,8 @@
 <resources>
 
-    <string name="app_name">Android Expense</string>
-    <string name="description">Android Expense, Track Expense via Google Calendar</string>
-    <string name="about_url">https://github.com/williamjoy/android-expense</string>
+    <string name="app_name">Mary Expense</string>
+    <string name="description">Mary Expense, Track Expense via Google Calendar</string>
+    <string name="about_url">https://williamjoy.github.io/android-expense/</string>
     <string name="author">\u00A9 Lichun Wei</string>
     <string name="email">lichun.william@gmail.com</string>
     
