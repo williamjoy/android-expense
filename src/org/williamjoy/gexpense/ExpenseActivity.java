@@ -1,10 +1,11 @@
 package org.williamjoy.gexpense;
 
+import static org.williamjoy.gexpense.ExpenseConstants.ExpenseEvents._ID;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.Random;
 import java.util.Set;
 
 import org.williamjoy.gexpense.model.CalendarInstanceData;
@@ -18,7 +19,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -35,8 +35,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
-
-import static org.williamjoy.gexpense.ExpenseConstants.ExpenseEvents._ID;
 
 public class ExpenseActivity extends Activity {
 

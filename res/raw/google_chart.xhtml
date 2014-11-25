@@ -1,7 +1,8 @@
 <html><head>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
-      google.load("visualization", "1.0", {packages:["corechart"]});
+      google.load("visualization", "1", {packages:["corechart"]});
+      
       google.setOnLoadCallback(drawChart);
       function toMultiDimensionTable(dt){
         var data = new google.visualization.DataTable();
@@ -11,11 +12,11 @@
         var dim2column={};
         var date2row={};
         data.addRows(distinctDates.length);
-        for (var i = 0; i < distinctColumns.length; i++) { 
+        for (var i = 0; i < distinctColumns.length; i++) {
             data.addColumn('number',distinctColumns[i]);
             dim2column[distinctColumns[i]]=i;
         }
-        for (var i = 0; i < distinctDates.length; i++) { 
+        for (var i = 0; i < distinctDates.length; i++) {
             date2row[distinctDates[i]]=i;
             data.setCell(i,0,distinctDates[i]);
         }
@@ -54,4 +55,5 @@
     <div id="chart_div_payment_monthly"  style="__::COLUMN_CHART_STYLE::__"></div><br/>
     <div id="chart_div_by_category" style="__::PIE_CHART_STYLE::__"></div><br/>
     <div id="chart_div_by_payment"  style="__::PIE_CHART_STYLE::__"></div>
-  </body></html>
+  </body>
+</html>

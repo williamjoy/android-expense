@@ -1,5 +1,9 @@
 package org.williamjoy.gexpense;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+
 import org.williamjoy.gexpense.util.RawTextHelper;
 
 import android.annotation.SuppressLint;
@@ -8,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.Window;
 import android.view.WindowManager;
@@ -66,5 +71,30 @@ public class GoogleChartActivity extends Activity {
         data=data.replace("__::PIE_CHART_STYLE::__"   , orientation==Configuration.ORIENTATION_PORTRAIT?"width: 120%; height: 60%;":"width: 100%; height: 100%;");
         data=data.replace("__::H_AXIS_GRIDLINES_COUNT::__", sharedPrefenceManger.getInt("history_month", 12) + "");
         webview.loadData(data, "text/html", null);
+        
+        String html=RawTextHelper.getRawTextFromResource(getApplicationContext(), R.raw.calendar_chart);
+        html=html.replace("__::DATATABLE_HEADER::__", tableHeader);
+        html=html.replace("__::DATATABLE_ROWS::__", tableRows);
+        writeTmpFile(html);
+    }
+    private void writeTmpFile(String data) {
+    	File tmpHTMLFile = new File(Environment.getExternalStorageDirectory()
+                .getPath() + "/Expense/chart.html");
+        try {
+            if (!tmpHTMLFile.getParentFile().exists()) {
+                tmpHTMLFile.getParentFile().mkdirs();
+            }
+            if (!tmpHTMLFile.exists()) {
+                tmpHTMLFile.createNewFile();
+            }
+            FileOutputStream fos = new FileOutputStream(tmpHTMLFile);
+            PrintWriter pw = new PrintWriter(fos);
+            pw.print(data);
+            pw.flush();
+            pw.close();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
