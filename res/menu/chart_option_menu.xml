@@ -2,16 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/menuItemDebug"
-        android:icon="@drawable/ic_action_source_code"
-        android:showAsAction="ifRoom|withText"
-        android:title="View Source">
-    </item>
-    <item
         android:id="@+id/menuItemBrowser"
         android:icon="@drawable/ic_action_browser"
         android:showAsAction="ifRoom|withText"
-        android:title="View In Browser">
+        android:title="Detail in Browser">
     </item>
 
 </menu>

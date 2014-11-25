@@ -3,13 +3,13 @@
 
     <item
         android:id="@+id/menuItemCreate"
-        android:title="New Event"
+        android:title="@string/new_event"
         android:icon="@drawable/ic_action_new"
         android:showAsAction="ifRoom|withText">
     </item>
     <item
         android:id="@+id/menuItemRefresh"
-        android:title="Refresh"
+        android:title="@string/refresh"
         android:icon="@drawable/ic_action_refresh"
         android:showAsAction="ifRoom|withText">
     </item>

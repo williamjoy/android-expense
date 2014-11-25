@@ -125,7 +125,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.00"
-                android:gravity="right|center_vertical"
+                android:gravity="end|center_vertical"
                 android:paddingRight="10dip"
                 android:text="@string/label_date"
                 android:textStyle="bold" />
@@ -134,7 +134,7 @@
                 android:id="@+id/editTextDate"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_weight="3.00"
                 android:cursorVisible="false"
                 android:ems="10"

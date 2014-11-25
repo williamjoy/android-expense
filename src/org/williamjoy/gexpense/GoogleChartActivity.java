@@ -8,12 +8,17 @@ import org.williamjoy.gexpense.util.RawTextHelper;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebChromeClient;
@@ -24,12 +29,14 @@ import android.widget.Toast;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class GoogleChartActivity extends Activity {
+    private String html_data = "NULL";
+    private File tmpHTMLFile;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.requestWindowFeature(Window.FEATURE_ACTION_BAR);
         Intent input = this.getIntent();
         String tableHeader=input.getStringExtra("googleDataTableHeader");
         String tableRows=input.getStringExtra("googleDataTableRows");
@@ -75,10 +82,10 @@ public class GoogleChartActivity extends Activity {
         String html=RawTextHelper.getRawTextFromResource(getApplicationContext(), R.raw.calendar_chart);
         html=html.replace("__::DATATABLE_HEADER::__", tableHeader);
         html=html.replace("__::DATATABLE_ROWS::__", tableRows);
-        writeTmpFile(html);
+        this.html_data=html;
     }
     private void writeTmpFile(String data) {
-    	File tmpHTMLFile = new File(Environment.getExternalStorageDirectory()
+        tmpHTMLFile = new File(Environment.getExternalStorageDirectory()
                 .getPath() + "/Expense/chart.html");
         try {
             if (!tmpHTMLFile.getParentFile().exists()) {
@@ -95,6 +102,62 @@ public class GoogleChartActivity extends Activity {
             fos.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.chart_option_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menuItemBrowser:
+                writeTmpFile(this.html_data);
+                viewInBrowser();
+                break;
+        }
+        return
+                true;
+    }
+    private boolean startBrowserActivity(Uri uri, String pkg, String activity) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+        try {
+            browserIntent.setClassName(pkg, activity);
+            browserIntent.setData(uri);
+            startActivity(browserIntent);
+            return true;
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(getBaseContext(),
+                    "com.android.chrome package not installed", Toast.LENGTH_SHORT)
+                    .show();
+            return false;
+        }
+    }
+    private void viewInBrowser() {
+
+        String state = Environment.getExternalStorageState();
+
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+
+            Uri uri = Uri.fromFile(tmpHTMLFile);
+            if (false == startBrowserActivity(uri, "com.android.chrome",
+                    "com.google.android.apps.chrome.Main")) {
+                startBrowserActivity(uri, "com.android.browser",
+                        "com.android.browser.BrowserActivity");
+            }
+        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            Toast.makeText(getBaseContext(), "Media is read only!",
+                    Toast.LENGTH_SHORT).show();
+
+        } else if (Environment.MEDIA_REMOVED.equals(state)) {
+            Toast.makeText(getBaseContext(), "Media Removed!",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getBaseContext(), "Media Error!", Toast.LENGTH_SHORT)
+                    .show();
         }
     }
 }
